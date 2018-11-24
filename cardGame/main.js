@@ -17,17 +17,44 @@ var cardsArray = [
     {    'name': 'Sublime',    'img': 'https://github.com/robgmerrill/img/blob/master/sublime-logo.png?raw=true',  },
     {    'name': 'Wordpress',    'img': 'https://github.com/robgmerrill/img/blob/master/wordpress-logo.png?raw=true',  },
   ];
-
+//Duplicate cards
+var gameGrid = cardsArray.concat(cardsArray);
+//randomize card places
+gameGrid.sort(function(){
+    return 0.5 - Math.random();
+})
+//grab the div with an id of game-board and assign it to var game
 var game = document.getElementById('game-board');
-
+//create a section element and assign it to var grid
 var grid = document.createElement('section');
-
+//give  section element a class of grid
 grid.setAttribute('class','grid');
+//add grid section to game board
 game.appendChild(grid);
-for(i = 0; i < cardsArray.length; i++){
+//loop for all cards from array
+for(i = 0; i < gameGrid.length; i++){
+    //create div element and assign it to var card
     var card = document.createElement('div');
+    //apply a card clas to that div
     card.classList.add('card');
-    card.dataset.name = cardsArray[i].name;
-    card.style.backgroundImage = `url(${cardsArray[i].img})`;
+    //set data-name attr to div
+    card.dataset.name = gameGrid[i].name;
+    //apply img to div 
+    card.style.backgroundImage = `url(${gameGrid[i].img})`;
+    //add div to card section
     grid.appendChild(card);
 }
+
+//add event listener to grid
+grid.addEventListener('click',function(event){
+    // var for clicked item
+    var clicked = event.target;
+    console.log(clicked.nodeName);
+    //to prevent border appearing for board
+    if (clicked.nodeName === 'SECTION'){
+        return ;
+        console.log(clicked.nodeName);
+    };
+    //add selected class
+    clicked.classList.add('selected');
+});
