@@ -48,7 +48,7 @@ for(i = 0; i < gameGrid.length; i++){
 var firstGuess = '';
 var secondGuess = '';
 var count = 0;
-var previouseTarget = null;
+var previousTarget = null;
 //add match
 var match = function(){
     var selected = document.querySelectorAll('.selected');
@@ -57,14 +57,27 @@ var match = function(){
         selected[i].classList.add('match');
     }
 };
+
+//reset guesses  after match
+var resetGuesses = function(){
+    firstGuess = '';
+    secondGuess = '';
+    count = 0;
+    previousTarget = null;
+
+    var selected = document.querySelectorAll('.selected');
+    for(i = 0; i < selected.length; i++){
+        selected[i].classList.remove('selected');
+    }
+};
+
 //add event listener to grid
 grid.addEventListener('click',function(event){
     // var for clicked item
     var clicked = event.target;
     //to prevent border appearing for board
-    if (clicked.nodeName === 'SECTION' || clicked ===previouseTarget || clicked.parentNode.classList.contains('match') || clicked.parentNode.classList.contains('selected')){
+    if (clicked.nodeName === 'SECTION' || clicked ===previousTarget || clicked.parentNode.classList.contains('match') || clicked.parentNode.classList.contains('selected')){
         return ;
-                //console.log(clicked.nodeName);
     };
     if (count < 2){
         count++;
@@ -75,7 +88,7 @@ grid.addEventListener('click',function(event){
             firstGuess = clicked.dataset.name;
             clicked.classList.add('selected');
 
-        }else{
+        } else {
             //assign second guess
             secondGuess = clicked.dataset.name;
             clicked.classList.add('selected');
@@ -86,8 +99,11 @@ grid.addEventListener('click',function(event){
             if (firstGuess ===  secondGuess){
                 //run match function
                 match();
+                resetGuesses();
+            } else {
+                resetGuesses();
             }
         }
-        previouseTarget = clicked;
+        previousTarget = clicked;
     }
 });
