@@ -45,16 +45,49 @@ for(i = 0; i < gameGrid.length; i++){
     grid.appendChild(card);
 }
 
+var firstGuess = '';
+var secondGuess = '';
+var count = 0;
+var previouseTarget = null;
+//add match
+var match = function(){
+    var selected = document.querySelectorAll('.selected');
+    for (i = 0; i < selected.length; i++){
+        //loop through array
+        selected[i].classList.add('match');
+    }
+};
 //add event listener to grid
 grid.addEventListener('click',function(event){
     // var for clicked item
     var clicked = event.target;
-    console.log(clicked.nodeName);
     //to prevent border appearing for board
-    if (clicked.nodeName === 'SECTION'){
+    if (clicked.nodeName === 'SECTION' || clicked ===previouseTarget || clicked.parentNode.classList.contains('match') || clicked.parentNode.classList.contains('selected')){
         return ;
-        console.log(clicked.nodeName);
+                //console.log(clicked.nodeName);
     };
-    //add selected class
-    clicked.classList.add('selected');
+    if (count < 2){
+        count++;
+        //add selected class
+        //clicked.classList.add('selected');
+        if(count ===1){
+            //assign first guess
+            firstGuess = clicked.dataset.name;
+            clicked.classList.add('selected');
+
+        }else{
+            //assign second guess
+            secondGuess = clicked.dataset.name;
+            clicked.classList.add('selected');
+        }
+        //if both guess are not empty
+        if(firstGuess!== '' && secondGuess!== ''){
+            //and they match
+            if (firstGuess ===  secondGuess){
+                //run match function
+                match();
+            }
+        }
+        previouseTarget = clicked;
+    }
 });
