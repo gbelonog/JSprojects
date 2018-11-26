@@ -39,10 +39,24 @@ for(i = 0; i < gameGrid.length; i++){
     card.classList.add('card');
     //set data-name attr to div
     card.dataset.name = gameGrid[i].name;
-    //apply img to div 
+   /* //apply img to div 
     card.style.backgroundImage = `url(${gameGrid[i].img})`;
     //add div to card section
+    grid.appendChild(card);*/
+    
+    //create front of card
+    var front = document.createElement('div');
+    front.classList.add('front');
+    //create back of card
+    var back = document.createElement('div');
+    back.classList.add('back');
+    back.style.backgroundImage = `url(${gameGrid[i].img})`;
+
+    //append card to grid
     grid.appendChild(card);
+    card.appendChild(front);
+    card.appendChild(back);
+
 }
 
 var firstGuess = '';
@@ -87,13 +101,13 @@ grid.addEventListener('click',function(event){
         //clicked.classList.add('selected');
         if(count === 1){
             //assign first guess
-            firstGuess = clicked.dataset.name;
-            clicked.classList.add('selected');
+            firstGuess = clicked.parentNode.dataset.name;
+            clicked.parentNode.classList.add('selected');
 
         } else {
             //assign second guess
-            secondGuess = clicked.dataset.name;
-            clicked.classList.add('selected');
+            secondGuess = clicked.parentNode.dataset.name;
+            clicked.parentNode.classList.add('selected');
         }
         //if both guess are not empty
         if(firstGuess!== '' && secondGuess!== ''){
