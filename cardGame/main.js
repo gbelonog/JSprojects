@@ -49,6 +49,8 @@ var firstGuess = '';
 var secondGuess = '';
 var count = 0;
 var previousTarget = null;
+var delay = 1200;
+
 //add match
 var match = function(){
     var selected = document.querySelectorAll('.selected');
@@ -83,7 +85,7 @@ grid.addEventListener('click',function(event){
         count++;
         //add selected class
         //clicked.classList.add('selected');
-        if(count ===1){
+        if(count === 1){
             //assign first guess
             firstGuess = clicked.dataset.name;
             clicked.classList.add('selected');
@@ -98,10 +100,10 @@ grid.addEventListener('click',function(event){
             //and they match
             if (firstGuess ===  secondGuess){
                 //run match function
-                match();
-                resetGuesses();
+                setTimeout(match, delay);
+                setTimeout(resetGuesses,delay);
             } else {
-                resetGuesses();
+                setTimeout(resetGuesses,delay);
             }
         }
         previousTarget = clicked;
