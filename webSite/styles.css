@@ -83,3 +83,48 @@ footer img{
     margin: 0;
     font-size: 100px;
 }
+.hero-content p {
+    font-size: 50px;
+    margin-bottom: 60px;
+}
+.hero-content a {
+    color: white;
+    border: 3px solid white;
+    border-radius: 3px;
+    padding: 15px 30px;
+    margin-right: 20px;
+    text-decoration: aquamarine;
+    font-size: 28px;
+}
+
+/* site section*/
+
+.site-section{
+    padding-bottom: 50px;
+    padding-top: 50px
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.site-section-inside {
+    width: 80%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.section-header h2 {
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #777;
+}
+
+.site-section-secondary {
+    background: #EFEFEF;
+}
