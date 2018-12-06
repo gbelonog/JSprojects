@@ -45,7 +45,7 @@ header #main-navigation ul li{
 }
 
 header #main-navigation ul li a{
-    color: red;
+    color: white;
     text-decoration: aqua;
     padding: 10px 15px;
 }
@@ -190,4 +190,51 @@ footer img{
 .testimonial-author span {
     color: #999;
     font-size: 14px;
+}
+
+/* mobile responsive*/
+
+@media screen and (max-width: 500px){
+    /* header*/
+    header #page-header {
+        width: 100%;
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    header #main-navigation {
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
+
+    /*  hero */
+    .hero {
+        min-height: 300px;
+    }
+    .hero-content {
+        padding-top: 80px;
+    }
+    .hero-title {
+        font-size: 30px;
+    }
+    .hero-content p {
+        font-size: 16px;
+        padding: 10px 15px;
+        border-width: 1px;
+        background: #fff;
+        color: #333;
+    }
+    /*feature boxes*/
+    .services-box {
+        width: 100%;
+        display: block;
+    }
+    /*testimonial boxes*/
+    .testimonial-box {
+        width: 100%;
+        display: inline-block;
+        background-color: #92c2e2;
+    }
 }
