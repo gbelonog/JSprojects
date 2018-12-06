@@ -45,13 +45,13 @@ header #main-navigation ul li{
 }
 
 header #main-navigation ul li a{
-    color: white;
+    color: red;
     text-decoration: aqua;
     padding: 10px 15px;
 }
-header #main-navigation ul li a:hover{
-    background: #444;
-    border-radius:3px;
+header #main-navigation ul li a:hover {
+    background: #92c2e2;
+    border-radius:300px;
     transition: 30s ease all;
 }
 /* footer*/
@@ -149,4 +149,45 @@ footer img{
     text-transform: uppercase;
     font-weight: 300px;
     letter-spacing: 2px;
+}
+
+/* about */
+
+.about {
+    background: #92c2e2;
+    width: 100%;
+    padding: 50px 0;
+}
+
+.testimonial-box{
+    display:inline-block;
+    width: 27%;
+    padding: 20px 30px;
+}
+
+.testimonial-content {
+    background: #ECF0F1;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.testimonial-author{}
+
+.testimonial-author img{
+    float: left;
+    width: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.testimonial-author h5 {
+    font-size: 18px;
+    margin: 0;
+    padding-top: 15px;
+}
+
+.testimonial-author span {
+    color: #999;
+    font-size: 14px;
 }
