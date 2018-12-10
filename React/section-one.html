@@ -4,10 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!---->
+    <!---React library-->
+    <script src = "https://unpkg.com/react@15.5.4/dist/react.js"></script>
+    <!---React DOM library-->
+    <script src = "https://unpkg.com/react-dom@15.5.4/dist/react-dom.js"></script>
+    <!---BABEL library-->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
     <title>Lrt's React!</title>
 </head>
 <body>
-    
+    <!--designed location to insert react content-->
+    <div id = "app">React is not rendered yet</div>
+    <!--javascript-->
+    <script type =  "text/babel">
+        //render react to the DOM
+        ReactDOM.render(
+            <h1>Hello</h1>, 
+            document.getElementById("app")
+        );
+    </script>
 </body>
 </html>
