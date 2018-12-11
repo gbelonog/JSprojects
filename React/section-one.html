@@ -39,16 +39,19 @@
         //create vars for JSX and for location
 
         //variable for jsx
-           var hello = <h1>Hello world</h1>;
+        //   var hello = <h1>Hello world</h1>;
         //vars for location 
-           var destination = document.getElementById("app");
+        //   var destination = document.getElementById("app");
         
         //render react to the DOM
-        // ReactDOM.render(
-        //     <p1>Hello</p1>, 
-        //     document.getElementById("app")
-        // );
-        ReactDOM.render(hello, destination);
+        ReactDOM.render(
+           <div>
+            <p1>Hello</p1>
+             <h2>Good day</h2>
+            </div>,
+            document.getElementById("app")
+        );
+        //ReactDOM.render(hello, destination);
     </script>
 </body>
 </html>
