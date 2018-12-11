@@ -10,18 +10,45 @@
     <script src = "https://unpkg.com/react-dom@15.5.4/dist/react-dom.js"></script>
     <!---BABEL library-->
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
-    <title>Lrt's React!</title>
+    <title>Let's React!</title>
 </head>
 <body>
     <!--designed location to insert react content-->
     <div id = "app">React is not rendered yet</div>
     <!--javascript-->
     <script type =  "text/babel">
+        //render a paragraph
+        // ReactDOM.render(
+        //     <p1>I'm paragraph</p1>,
+        //    document.getElementById("app")
+        // );
+        //render an anchor
+        // ReactDOM.render(
+        //     <a href = "http://www.google.com">visit google</a>, 
+        //     document.getElementById("app")
+        // );
+        //render an unordered list
+        // ReactDOM.render(
+        //     <ul>
+        //         <li>1</li>
+        //         <li>2</li>
+        //         <li>3</li>
+        //     </ul>, 
+        //     document.getElementById("app")
+        // );
+        //create vars for JSX and for location
+
+        //variable for jsx
+            var hello = <h1>Hello world</h1>;
+        //vars for location 
+            var destination = document.getElementByID("app");
+        
         //render react to the DOM
-        ReactDOM.render(
-            <h1>Hello</h1>, 
-            document.getElementById("app")
-        );
+        // ReactDOM.render(
+        //     <h1>Hello</h1>, 
+        //     document.getElementById("app")
+        // );
+        ReactDOM.render(hello, destination);
     </script>
 </body>
 </html>
