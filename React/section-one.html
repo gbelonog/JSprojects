@@ -44,14 +44,12 @@
         //   var destination = document.getElementById("app");
         
         //render react to the DOM
-        ReactDOM.render(
-           <div>
-            <h1>Hello</h1>
-             <h2>Good day</h2>
-             <h3>Good day</h3>
-            </div>,
-            document.getElementById("app")
-        );
+        ReactDOM.render(React.createElement(
+           "h1",
+           null,
+           "Hello"
+        ), document.getElementById("app"));
+
         //ReactDOM.render(hello, destination);
     </script>
 </body>
