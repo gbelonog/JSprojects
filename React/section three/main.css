@@ -1,0 +1,41 @@
+.Red{
+    height: 50px;
+    width: 150px;
+    background-color: red;
+}
+
+.Orange{
+    height: 50px;
+    width: 150px;
+    background-color: orange;
+}
+
+.Yellow{
+    height: 50px;
+    width: 150px;
+    background-color: yellow;
+}
+                
+.Green{
+    height: 50px;
+    width: 150px;
+    background-color: green;
+}
+
+.Blue{
+    height: 50px;
+    width: 150px;
+    background-color: blue;
+}
+                
+.Indigo{
+    height: 50px;
+    width: 150px;
+    background-color: indigo;
+}
+                
+.Violet{
+    height: 50px;
+    width: 150px;
+    background-color: violet;
+}
