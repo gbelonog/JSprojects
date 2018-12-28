@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!---React library-->
+    <script src = "https://unpkg.com/react@15.5.4/dist/react.js"></script>
+    <!---React DOM library-->
+    <script src = "https://unpkg.com/react-dom@15.5.4/dist/react-dom.js"></script>
+    <!---BABEL library-->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <!--Font--> 
+    <link rel="stylesheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <title>example1</title>
+</head>
+<body>
+    <div id="app">React is not rendered yet</div> 
+    <script type="text/babel">
+        
+        class FirstName extends React.Component{
+            render() {
+                return(
+                    <h1>{this.props.firstName}</h1>    
+                ); 
+            }
+        }
+        class LastName extends React.Component{
+            render(){
+                return(
+                    <h1>{this.props.lastName}</h1>    
+                ); 
+            }
+        }        
+        class Profile extends React.Component{
+            render(){
+                return(
+                    <img src={this.props.img}/>    
+                ); 
+            }
+        }
+        class FullName extends React.Component{
+            render() {
+                return(
+                    <div>
+                    {}
+                        <FirstName firstName={this.props.firstName}/>
+                        <LastName lastName={this.props.lastName}/> 
+                        <Profile img={this.props.img}/>
+                    </div>  
+                ); 
+            }
+        }
+        ReactDOM.render(
+            <div>
+                <FullName firstName="Galya" lastName = "Bilonog"
+                img = "https://scontent-frt3-1.xx.fbcdn.net/v/t31.0-8/265860_150766548331274_7944923_o.jpg?_nc_cat=109&_nc_ht=scontent-frt3-1.xx&oh=41afc9db22e157d0f6c4d64334b14397&oe=5CC8C4CF"
+                />
+            </div>,
+            document.getElementById("app")
+        );
+    </script>   
+</body>
+</html>
