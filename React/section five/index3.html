@@ -17,7 +17,17 @@
     <div id="app">React is not rendered yet</div>
     <script type = "text/babel">
     
-    class RainbowLine extends React.Component{
+  var RainbowLine = function (props){
+    var lineStyle = {
+        height: 50,
+        width: 150,
+        backgroundColor: props.name
+        }
+        return(
+            <div style = {lineStyle}>{props.name}!</div>
+        );
+  }
+   /* class RainbowLine extends React.Component{
             render(){
                 var lineStyle = {
                     height: 50,
