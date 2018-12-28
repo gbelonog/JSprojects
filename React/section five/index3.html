@@ -22,7 +22,7 @@
                 var lineStyle = {
                     height: 50,
                     width: 150,
-                    backgroundColor: this.props.color
+                    backgroundColor: this.props.name
                 }
                 return(
                     <div style = {lineStyle}>{this.props.name}!</div>
@@ -99,7 +99,7 @@
             return(<h1 style={violetStyle}>Violet</h1>);}
 */
         ReactDOM.render(
-            <div>
+           /* <div>
                 <RainbowLine color = "Red" name = "Red"/>
                 <RainbowLine color = "Orange" name = "Orange"/>
                 <RainbowLine color = "Yellow" name = "Yellow"/>
@@ -107,6 +107,16 @@
                 <RainbowLine color = "Blue" name = "Blue"/>
                 <RainbowLine color = "Indigo" name = "Indigo"/>
                 <RainbowLine color = "Violet" name = "Violet"/>
+            </div>,
+            */
+            <div>
+                <RainbowLine name = "Red"/>
+                <RainbowLine name = "Orange"/>
+                <RainbowLine name = "Yellow"/>
+                <RainbowLine name = "Green"/>
+                <RainbowLine name = "Blue"/>
+                <RainbowLine name = "Indigo"/>
+                <RainbowLine name = "Violet"/>
             </div>,
             document.getElementById("app")
         );
