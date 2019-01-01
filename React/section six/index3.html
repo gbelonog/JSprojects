@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!---React library-->
+    <script src = "https://unpkg.com/react@15.5.4/dist/react.js"></script>
+    <!---React DOM library-->
+    <script src = "https://unpkg.com/react-dom@15.5.4/dist/react-dom.js"></script>
+    <!---BABEL library-->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <!--Font--> 
+    <link rel="stylesheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Friendly</title>
+</head>
+<body>
+    <div id="app">React is not rendered yet</div> 
+    <script type="text/babel">
+       
+    //    //family
+    //         function Family(props) {
+    //             var siblings = props.siblings;
+    //             var sibling = siblings.map(function(person){
+    //                 return <div key = {person.id}>{person.name}</div>
+    //             });
+    //             return(<div>{sibling}</div>)
+    //         }
+        //alernative
+       function Family(props){
+            var femaleSiblings = props.siblings.filter(function(person){
+                return person.female;
+            }).map(function(person){
+                return <div key = {person.id}>{person.name}</div>
+            });
+
+            var maleSiblings = props.siblings.filter(function(person){
+                return person.female === false;
+            }).map(function(person){
+                return <div key = {person.id}>{person.name}</div>
+            });
+
+            return(
+            <div>
+                <div>
+                    <h1>Female siblings</h1>
+                    <div>
+                        {femaleSiblings}
+                    </div>
+                </div>
+                <div>
+                    <h1>Male siblings</h1>  
+                     <div>
+                        {maleSiblings}
+                     </div>
+
+                </div>
+            </div>)
+        }
+       //array
+       var siblings = [{id:1, name: 'Alex', female: false},
+                    {id:2, name: 'Den', female: false},
+                    {id:3, name: 'Anna', female: true},
+                    {id:4, name: 'Galya', female: true}];
+
+       ReactDOM.render(
+            <Family
+                siblings={siblings}
+            />,
+            document.getElementById("app")
+        );
+    </script>   
+</body>
+</html>
