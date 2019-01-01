@@ -25,10 +25,11 @@
                 ); 
             }
         }
+    
         class LastName extends React.Component{
             render(){
                 return(
-                    <h1>{this.props.lastName}< /h1>    
+                    <h1>{this.props.lastName}</h1>    
                 ); 
             }
         }        
@@ -44,18 +45,28 @@
                 return(
                     <div>
                     {}
-                        <FirstName firstName={this.props.firstName}/>
-                        <LastName lastName={this.props.lastName}/> 
-                        <Profile img={this.props.img}/>
+                        <FirstName firstName={this.props.user.firstName}/>
+                        <LastName lastName={this.props.user.lastName}/> 
+                        <Profile img={this.props.user.img}/>
                     </div>  
                 ); 
             }
         }
+        
+       /* var person = {
+            firstName: "Galya",
+            lastName:"Bilonog",
+            img:"https://scontent-frt3-1.xx.fbcdn.net/v/t31.0-8/265860_150766548331274_7944923_o.jpg?_nc_cat=109&_nc_ht=scontent-frt3-1.xx&oh=41afc9db22e157d0f6c4d64334b14397&oe=5CC8C4CF"
+               
+        }*/
         ReactDOM.render(
             <div>
-                <FullName firstName="Galya" lastName = "Bilonog"
-                img = "https://scontent-frt3-1.xx.fbcdn.net/v/t31.0-8/265860_150766548331274_7944923_o.jpg?_nc_cat=109&_nc_ht=scontent-frt3-1.xx&oh=41afc9db22e157d0f6c4d64334b14397&oe=5CC8C4CF"
-                />
+                <FullName  user = {{
+            firstName: "Galya",
+            lastName:"Bilonog",
+            img:"https://scontent-frt3-1.xx.fbcdn.net/v/t31.0-8/265860_150766548331274_7944923_o.jpg?_nc_cat=109&_nc_ht=scontent-frt3-1.xx&oh=41afc9db22e157d0f6c4d64334b14397&oe=5CC8C4CF"
+               
+        } }/>
             </div>,
             document.getElementById("app")
         );
