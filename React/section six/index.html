@@ -19,14 +19,19 @@
     <script type="text/babel">
        
        //family
-            function Family(props) {
+           /* function Family(props) {
                 var siblings = props.siblings;
                 var sibling = siblings.map(function(person){
                     return <div key = {person.id}>{person.name}</div>
                 });
                 return(<div>{sibling}</div>)
-            }
-
+            }*/
+        //alernative
+        function Family(props){
+            return(<div>{props.siblings.map(function(person){
+                    return <div key = {person.id}>{person.name}</div>
+                })}</div>)
+        }
        //array
        var siblings = [{id:1, name: 'Alex', female: false},
                     {id:2, name: 'Den', female: false},
