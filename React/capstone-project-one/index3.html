@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!---React library-->
+    <script src = "https://unpkg.com/react@15.5.4/dist/react.js"></script>
+    <!---React DOM library-->
+    <script src = "https://unpkg.com/react-dom@15.5.4/dist/react-dom.js"></script>
+    <!---BABEL library-->
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js"></script>
+    <!--Font--> 
+    <link rel="stylesheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Friendly</title>
+</head>
+<body>
+    <div id="app">React is not rendered yet</div> 
+    <script type="text/babel">
+       //Friendly
+        function Friendly (props){
+            var people = props.friends;
+            var friends = people.map(function(guy){
+                var friendlyStyle = {
+                    display: 'inline-block',
+                    margin: 20,
+                    height: 300,
+                    width: 200,
+                    padding: 0,
+                    backgroundFilter: "#FFF",
+                    WebkitFilter: "drop-shadow(0px 0px 5px #555)",
+                    filter: "drop-shadow(0px 0px 5px #555)"
+                };
+                return <div style = {friendlyStyle}>
+                    <Avatar img = {guy.avatar}/>
+                    <UserName name = {guy.name}/>
+                    <GetConnected/>
+                </div>
+            });
+            return <div>{friends}</div>;
+        };
+        
+        // function Friendly(props){
+        //     var friendlyStyle = {
+        //         display: 'inline-block',
+        //         margin: 20,
+        //         height: 300,
+        //         width: 200,
+        //         padding: 0,
+        //         backgroundFilter: "#FFF",
+        //         WebkitFilter: "drop-shadow(0px 0px 5px #555)",
+        //         filter: "drop-shadow(0px 0px 5px #555)"
+        //     }
+        //     return(
+        //         <div style={friendlyStyle}>
+        //             <Avatar img = {props.avatar}/>
+        //             <UserName name = {props.name}/>
+        //             <GetConnected/>
+        //         </div>
+        //     );
+        // }
+       //Avatar
+        function Avatar(props){
+            var avatarStyle = {
+                marginLeft: 27,
+                marginTop:20,
+                width:150,
+                height: 200,
+                borderRadius: "50%"
+            }
+            return(
+                <img src={props.img} alt="profile" style = {avatarStyle}/>
+            );
+        }
+       //Username
+            function UserName(props){
+                var nameStyle = {
+                    fontSize: 24,
+                    textAlign: "center",
+                    fontFamily: "Arial, Hevletica, sans-serif",
+                    margin: 20
+                }
+                return(
+                    <h1 style = {nameStyle}>{props.name}</h1>
+                );
+            }
+       //getConnectrd
+            function GetConnected(){
+                var getConnectedStyle = {
+                    marginLeft: 15
+                }
+                return(
+                    <div style = {getConnectedStyle}>
+                        <Like/>
+                        <Share/>
+                        <Add/>
+                    </div>
+                );
+            };
+                var iconStyle = {
+                    margin:20
+                }
+
+            //like
+                function Like(){
+                    return(
+                            <i style = {iconStyle} className="far fa-thumbs-up"></i>
+                    );
+                };
+            //share
+                function Share(){
+                    return(
+                        <i style = {iconStyle} className="fas fa-share-alt"></i>
+                    );
+                };
+            //add
+                function Add(){
+                    return(
+                        <i style = {iconStyle} className="fas fa-plus"></i>
+                    );
+                };
+
+    var people= [
+                {name:"Galya", avatar: "https://scontent-frt3-1.xx.fbcdn.net/v/t31.0-8/265860_150766548331274_7944923_o.jpg?_nc_cat=109&_nc_ht=scontent-frt3-1.xx&oh=92232ede8307364897c5a1fbdc4cca19&oe=5CA137CF"},
+                {name:"Anna", avatar: "https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/41939054_720883428261479_7089200382290690048_o.jpg?_nc_cat=102&_nc_ht=scontent-frt3-1.xx&oh=6fb8f4cef5449125bf7c1487ef00e7ec&oe=5CC182AE"},
+                {name:"Alex", avatar:"https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/11390316_947981865244534_8408281585284710939_n.jpg?_nc_cat=102&_nc_ht=scontent-frt3-1.xx&oh=f0e4b68311e7f8616b0a8d2e394adaa9&oe=5CCC1E30"},
+                {name:"Lisa", avatar:"https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/29496641_1499614506814067_418073658485899264_n.jpg?_nc_cat=100&_nc_ht=scontent-frt3-1.xx&oh=be905415632cd74ecffb077ff5953caa&oe=5CC1F0B6"},
+                {name:"Den", avatar:"https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-1/29694529_10155397303545869_1629830219683860678_n.jpg?_nc_cat=104&_nc_ht=scontent-frt3-1.xx&oh=8e72f2922f08b9bf2589b1b400040347&oe=5C97897B"},
+                {name:"Vera", avatar:"https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/15420842_599093890274746_2842862428167104034_n.jpg?_nc_cat=101&_nc_ht=scontent-frt3-1.xx&oh=44190f6bdff47dee772275af3b161f71&oe=5C9488E6"},
+                {name:"Mary", avatar:"https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/40643636_2474714325885559_5252320836332814336_o.jpg?_nc_cat=101&_nc_ht=scontent-frt3-1.xx&oh=aca8cc99119724474a9597d5a48a25a3&oe=5C97EB70"}
+                ];
+
+        ReactDOM.render(
+            <Friendly friends = {people}/>,
+            document.getElementById("app")
+        );
+    </script>   
+</body>
+</html>
