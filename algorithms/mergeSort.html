@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        A = [2,1,0,3,34,23];
+        B = ["g","a","l","y","a"];
+        //var start = 0;
+        //var end = A.length;
+        var sortedArray = function(A){
+            console.log(A);
+
+            function merge(left, right){
+                var result = [];
+                var il = 0;
+                var ir = 0;
+                while (il < left.length && ir < right.length){
+                    if (left[il] < right[ir]){
+                        result.push(left[il++]);
+                    } else {
+                        result.push(right[ir++]);
+                    }
+                }
+                //console.log("result "+ result);
+                return result.concat(left.slice(il)).concat(right.slice(ir));
+            };
+        
+            function mergeSort(array){
+                console.log("array "+array);
+                var start = 0;
+                var end = array.length;
+                var middle = (start + end)/2;
+                if (array.length < 2){
+                     return array;
+                }else{
+                //if (start < end){
+                    //console.log(A);
+                    var leftA = array.slice(0, middle);
+                    console.log("left" + leftA);
+                    var rightA = array.slice(middle);
+                    console.log("right" + rightA);
+                    start++;
+                    return merge(mergeSort(leftA), mergeSort(rightA));
+          
+                }
+                //return merge(mergeSort(leftA), mergeSort(rightA));
+            };
+            
+            return mergeSort(A);
+        }
+        console.log(sortedArray(A));
+        console.log(sortedArray(B));
+    </script>
+</body>
+</html>
