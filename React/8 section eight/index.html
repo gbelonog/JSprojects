@@ -17,7 +17,7 @@
 <body>
     <div id="app">React is not rendered yet</div> 
     <script type="text/babel">
-        class Guess extends React.Component{
+ /*       class Guess extends React.Component{
             constructor(props){
                 super(props);
                 this.state = {
@@ -36,6 +36,50 @@
                         <h1>Guessing Game</h1>
                         <h2>{this.state.age}</h2>
                         <button onClick={this.onButtonReveal}>reveal my age</button>
+                    </div>
+                );
+            };  
+        };*/
+        /*class Guess extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {
+                    age: 'Guess My Age'
+                };
+            };
+            onButtonReveal(){
+                this.setState({
+                    age: '37'    
+                });
+            };
+            render(){
+                return(
+                    <div>
+                        <h1>Guessing Game</h1>
+                        <h2>{this.state.age}</h2>
+                        <button onClick={this.onButtonReveal.bind(this)}>reveal my age</button>
+                    </div>
+                );
+            };  
+        };*/
+        class Guess extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {
+                    age: 'Guess My Age'
+                };
+            };
+            onButtonReveal(){
+                this.setState({
+                    age: '37'    
+                });
+            };
+            render(){
+                return(
+                    <div>
+                        <h1>Guessing Game</h1>
+                        <h2>{this.state.age}</h2>
+                        <button onClick={() => this.onButtonReveal()}>reveal my age</button>
                     </div>
                 );
             };  
