@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //    var form = document.querySelector('form');
+        //var input = document.getElementById('user');
+        //var button = document.querySelector('button');
+        //var userChoice = "Bear";
+        function getUserChoice(userInput){
+            userChoice = userInput;
+            console.log(userChoice);
+            return userChoice;
+        }
+        function getComputerChoice(){
+            var comp = Math.floor(Math.random()*3)
+            //var compChoice = "Bear";
+            if (comp === 0) compChoice = "bear";
+                else if (comp === 1) compChoice = "human";
+                    else if (comp === 2) compChoice = "gun";
+            console.log(compChoice);
+            return compChoice;
+        }
+        
+        function determineWinner(user, comp){
+            //console.log("userChoice " + user + "\ncompChoice " + comp);
+            if (comp === user)return "Tie";
+            if (user === "bear"){if (comp === "human") return "user"; else return "comp";}
+            if (user === "human"){if (comp === "bear") return "comp"; else return "user";}
+            if (comp === "bear"){return "user";} else return "comp";
+        };
+        function determineWinnerNew(user, comp){
+            //console.log("userChoice " + user + "\ncompChoice " + comp);
+            if (comp === user)return "Tie";
+            if ((user === "bear")&&(comp === "human")) return "user";
+            if ((user === "bear")&&(comp === "gun")) return "comp";
+            if ((user === "human")&&(comp === "bear")) return "comp";
+            if ((user === "human")&&(comp === "gun")) return "user";
+            if ((user === "gun")&&(comp === "human")) return "comp";
+            if ((user === "gun")&&(comp === "bear")) return "user";
+        };
+        
+        function playGame(){
+            console.log(determineWinner(userChoice,compChoice));
+            console.log(determineWinnerNew(userChoice,compChoice));
+        };
+        
+    </script>
+<h2 id = "headerUserChoice">Select item:</h2>
+<input value="Bear" onclick=getUserChoice('bear') type="button">
+<input value="Human" onclick=getUserChoice('human') type="button">
+<input value="Gun" onclick=getUserChoice('gun') type="button">
+
+<h2 id = "headerComputerChoice">Click to get computer choice:</h2>
+<input value="compChoice" onclick=getComputerChoice() type="button">
+
+<input value="Play" onclick=playGame() type="button">
+
+
+</body>
+</html>
