@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function inputCaloriesByDay(day){
+            switch(day){
+                case 'Monday': return 2000; break;
+                case 'Tuesday': return 2010; break;
+                case 'Wednesday': return 2020; break;
+                case 'Thursday': return 2030; break;
+                case 'Friday': return 2040; break;
+                case 'Saturday': return 2050; break;
+                case 'Sunday': return 2060; break;
+                default: return 0;//console.log('Sorry, Input correct day of week, please');
+            };
+        };
+        function getTotalCalories(){
+            return inputCaloriesByDay('Monday')+
+            inputCaloriesByDay('Tuesday')+
+            inputCaloriesByDay('Wednesday')+
+            inputCaloriesByDay('Thursday')+
+            inputCaloriesByDay('Friday')+
+            inputCaloriesByDay('Saturday')+
+            inputCaloriesByDay('Sunday')
+        };
+        function getIdealCalories(){
+            var idealDailyCalories = 3000;
+            return idealDailyCalories * 7;
+        };
+        
+        function calculateHealthPlan(){
+            var actualCalories = getTotalCalories();
+            var idealCalories = getIdealCalories();
+            if (actualCalories === idealCalories) console.log("You ate just the right amount of food!");
+            else if (actualCalories > idealCalories) console.log("Time to head to the gym!");
+                else console.log("Time for seconds!");
+        };
+        //console.log(inputCaloriesByDay('Monday'));
+        console.log(calculateHealthPlan());
+    </script>
+</body>
+</html>
