@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function longestWordLength(str){
+            var regEx = /\W/g;
+            var  stringWithoutSpecialChars = str.replace(regEx, ' ');
+            var longetsWord = '';
+            var wordArray = stringWithoutSpecialChars.split(' ');
+            for(var i = 0; i < wordArray.length; i++){
+                if (wordArray[i].length > longetsWord.length){
+                    longetsWord = wordArray[i];
+                }
+            }
+            return longetsWord.length;
+        }  
+        console.log(longestWordLength('Hi, where is the library?'));
+        console.log(longestWordLength('Thanks for stopping by!'));
+    </script>
+</body>
+</html>
