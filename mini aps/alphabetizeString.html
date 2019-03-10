@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>longestString</title>
+</head>
+<body>
+    <script>
+    function alphabetizeFrase(str){
+        var withoutSpChars = str.replace(/\W/g, ' ');
+        var wordArray = withoutSpChars.split(' ').sort();
+        return wordArray;
+    }
+    function alphabetizeString(str){
+        return str.split('').sort().join('');
+    }
+    console.log(alphabetizeFrase('Hi, where is the airport?'));
+    console.log(alphabetizeFrase('Thanks for stopping by!'));
+    console.log(alphabetizeString('Good bye!'));
+    </script>
+</body>
+</html>
