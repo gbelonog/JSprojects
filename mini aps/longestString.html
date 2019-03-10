@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>longestString</title>
+</head>
+<body>
+    <script>
+    function longestWordLength(str){
+        var withoutSpChars = str.replace(/\W/g, ' ');
+        var longestWord = ' ';
+        var wordArray = withoutSpChars.split(' ');
+        for(var count of wordArray){
+            if (count.length > longestWord.length)
+            longestWord = count;
+        }
+        return longestWord.length;
+    }
+    console.log(longestWordLength('Hi, where is the airport?'));
+    console.log(longestWordLength('Thanks for stopping by!'));
+    </script>
+</body>
+</html>
