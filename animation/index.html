@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 50px;
+        }
+        #container{
+            background-color:skyblue;
+            height: 300px;
+            text-align: center;
+        }
+        #broom{
+           /* animation-name:fly;
+            animation-duration: 20s;
+            animation-iteration-count: infinite;*/
+            animation: fly 2s 5;
+        }
+        @keyframes fly {
+            0%{
+                transform: translateX(20px);
+            }
+            
+            50%{
+                transform: translateX(60px);
+            }
+            100%{
+                transform: translateX(20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <img id="broom" src="https://github.com/robgmerrill/online-course-images/blob/master/broom.png?raw=true"/>
+    </div>
+</body>
+</html>
