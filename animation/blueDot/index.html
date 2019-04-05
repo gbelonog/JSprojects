@@ -6,47 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-            body{
+           /* body{
                 padding: 50px;
-            }
+            }*/
             #container{
                 height: 300px;
                 text-align: center;
+                /*animation: drop 1s infinite;*/
             }
             #dot{
-                animation: fly 2s infinite;
+                width:200px;
+                height:300px;
+                margin: 100px auto;
+                animation: dot 2s infinite alternate  linear;
             }
             #header{
-                animation: flyHeader 2s infinite;
+                animation: drop 1s infinite;
             }
-            @keyframes fly {
-                0%{
-                    transform: translateX(20px);
-                }
-                
-                50%{
-                    transform: translateX(60px);
-                }
-                100%{
-                    transform: translateX(20px);
-                }
+            #text{
+                text-align: center;
+                animation: flyText 1s 5s forwards;
             }
-            @keyframes flyHeader {
-                0%{
-                    transform: translateY(0px);
-                }
-                100%{
-                    transform: translateY(40px);
-                }
+            @keyframes drop {
+                0%{transform: translateY(-100px);}
+                100%{transform: translateY(0px);}
             }
-
+            @keyframes dot {
+                0%{opacity: 1;}
+                50%{opacity: 0.5;}
+                100%{opacity: 0;}
+            }
+           /* @keyframes flyHeader {
+                0%{transform: translateY(0px);}
+                100%{transform: translateY(40px);}
+            }*/
+            @keyframes flyText {
+                0%{transform: translateX(0px);}
+                100%{transform: translateX(700px);}
+            }
         </style>
 </head>
 <body>
     <div id="container">
-        <h1 id = "header">it is not a blue dot</h1>
-        <img id="dot" src="https://cdn.pixabay.com/photo/2016/01/16/14/08/butterfly-1143412_1280.png"/>
-        <h2>this paragraph is going to disappear in about 5 sec</h2>
+        <h1 id = "header">It is not a blue dot</h1>
+        <img id="dot" src="https://cdn.pixabay.com/photo/2016/01/16/14/08/butterfly-1143412_1280.png" />
+        <h2 id = "text">this paragraph is going to disappear in about 5 sec</h2>
     </div>
 </body>
 </html>

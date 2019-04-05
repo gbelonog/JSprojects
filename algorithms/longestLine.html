@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Longest tLine</title>
+</head>
+<body>
+    <script>
+
+        function longestWordLane(str){
+            var regEx = /\W/g;
+            var stringWithotSpecChars = str.replace(regEx, ' ');
+            var longestWord = '';
+            var wordArray = stringWithotSpecChars.split(' ');
+            for(var i = 0; i < wordArray.length; i++){
+                if (wordArray[i].length > longestWord.length)
+                    longestWord = wordArray[i];
+            }
+            return longestWord.length;
+        }
+        console.log(longestWordLane('Hi, where  is the airport?'));
+        console.log(longestWordLane('Thanks for stopping by!'));
+
+    </script>
+</body>
+</html>
