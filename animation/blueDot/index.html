@@ -19,6 +19,9 @@
             #header{
                 animation: flyHeader 2s infinite;
             }
+            #paragraph{
+                animation: flyParagraph 2s infinite;
+            }
             @keyframes fly {
                 0%{
                     transform: translateX(20px);
@@ -40,13 +43,22 @@
                 }
             }
 
+            @keyframes flyParagraph {
+                0%{
+                    transform: translateY(0px);
+                }
+                100%{
+                    transform: translateY(40px);
+                }
+            }
+
         </style>
 </head>
 <body>
     <div id="container">
         <h1 id = "header">it is not a blue dot</h1>
         <img id="dot" src="https://cdn.pixabay.com/photo/2016/01/16/14/08/butterfly-1143412_1280.png"/>
-        <h2>this paragraph is going to disappear in about 5 sec</h2>
+        <h2 id = "paragraph">this paragraph is going to disappear in about 5 sec</h2>
     </div>
 </body>
 </html>
