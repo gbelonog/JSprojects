@@ -1,20 +1,15 @@
-var cubes = [
-    { 'name': 'one' },
-    { 'name': 'two'}
-];
-
-var game = document.getElementById('board');
-var gameGrid = cubes.concat(cubes);
-var grid = document.createElement('section');
+var game = document.getElementById('board');//get board
+var grid = document.createElement('section');//create grid
 grid.setAttribute('class','grid');
-game.appendChild(grid);
-for(i = 0; i < 9; i++){
-    //create div element and assign it to var card
-    var card = document.createElement('div');
-    //apply a card clas to that div
-    card.classList.add('card');
-   //append card to grid
-    grid.appendChild(card);
-    
-
-}
+game.appendChild(grid);//add grid to board
+for(i = 0; i < 4; i++)
+{
+    var card = document.createElement('div');//create div element and assign it to var card
+    card.classList.add('card');//apply a card class to that div
+    grid.appendChild(card);//add card to grid
+};
+//add event listener to grid
+grid.addEventListener('click',function(event){
+    var clicked = event.target;// var for clicked item
+    clicked.classList.add('selected');
+});
