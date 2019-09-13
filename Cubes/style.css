@@ -2,11 +2,10 @@ body {
     background: rgb(132, 200, 245);
 }
 .grid {
-    /*max-width: 960px;*/
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
-    background:rgb(121, 121, 235);
+    background:rgb(139, 139, 226);
     height: 550px;
     width: 600px;
     flex-wrap: wrap;
@@ -15,9 +14,12 @@ body {
     margin: 10px;
     height: 150px;
     width: 150px;
-    background: green;
+    background: rgb(113, 202, 113);
 }
 .yellowState{
-    background: yellow;
+    margin: 10px;
+    height: 150px;
+    width: 150px;
+    background: #eef584;
  }
 
