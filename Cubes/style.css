@@ -2,18 +2,22 @@ body {
     background: rgb(132, 200, 245);
 }
 .grid {
-    max-width: 960px;
+    /*max-width: 960px;*/
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
+    background:rgb(121, 121, 235);
+    height: 550px;
+    width: 600px;
+    flex-wrap: wrap;
 }
-.card{
-    margin: 5px;
+.greenState{
+    margin: 10px;
     height: 150px;
     width: 150px;
     background: green;
 }
-.selected{
+.yellowState{
     background: yellow;
  }
 
