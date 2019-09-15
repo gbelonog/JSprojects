@@ -28,22 +28,21 @@ game.appendChild(grid);//add grid to board
 for(i = 0; i < cubesBox.length; i++)
 {
     var cube = document.createElement('div');//create div element and assign it to var card
-    if (cubesBox[i].state == 1){cube.classList.add('greenState');}//apply a green cube to that div}
-        else {cube.classList.add('yellowState');}//apply a yellow cube to that div
-    grid.appendChild(cube);//add card to grid
+   if (cubesBox[i].state == 1){cube.classList.add('yellowState');}//apply a green cube to that div}
+    else {cube.classList.add('greenState');}//apply a yellow cube to that div
+   
+ //cube.classList.add('yellowState');
+ grid.appendChild(cube);//add card to grid*/
 };
 
 //add event listener to grid
 grid.addEventListener('click',function(event){
     var clicked = event.target;// var for clicked item
-    var color = clicked.classList.value;
-    console.log(color);
-    if (color === 'greenState'){clicked.classList.add('yellowState');}
+    console.log(clicked.classList);
+    if (clicked.classList == 'yellowState'){clicked.classList.add('greenState');}
    //if (clicked.classList == 'yellowState'){console.log('test');}
-    if (color === 'yellowState'){clicked.classList.add('whiteState');}
-    if (color === 'whiteState'){clicked.classList.add('greenState');}
-    //clicked.parentNode.dataset.name
-   //else {clicked.classList.add('greenState');}
+    //if (clicked.classList == 'greenState'){clicked.classList.add('yellowState');}
+   else {clicked.classList.add('yellowState');}
    //else {console.log('test1');}
 });
 
