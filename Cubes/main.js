@@ -23,7 +23,6 @@ grid.addEventListener('click',function(event){
 
 //function to changing color of clicked element and its naibors
 function changeColor(cube){
-   // console.log(cube.classList);
     if (cube.classList.contains('grid')){
         return 0;
     };
@@ -41,7 +40,6 @@ function changeColor(cube){
 function changeColorById(n){
         elementNearClicked = document.getElementById(n);
         changeColor(elementNearClicked);
-        console.log(n);
     };    
     
 //function for selecting naibors of clicked element
