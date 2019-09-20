@@ -23,7 +23,10 @@ grid.addEventListener('click',function(event){
 
 //function to changing color of clicked element and its naibors
 function changeColor(cube){
-    if (cube.classList.contains('grid')){return};
+   // console.log(cube.classList);
+    if (cube.classList.contains('grid')){
+        return 0;
+    };
     if (cube.classList.contains('yellowState')){
         cube.classList.remove('yellowState');
         cube.classList.add('greenState');
@@ -38,91 +41,22 @@ function changeColor(cube){
 function changeColorById(n){
         elementNearClicked = document.getElementById(n);
         changeColor(elementNearClicked);
+        console.log(n);
     };    
     
 //function for selecting naibors of clicked element
 function selectNaibor(id){
-    switch(id) {
-        case '0':  
-            changeColorById(1);
-            changeColorById(4);
-            break;
-        case '1':  
-            changeColorById(0);
-            changeColorById(2);
-            changeColorById(5);
-            break;
-        case '2':  
-            changeColorById(1);
-            changeColorById(3);
-            changeColorById(6);
-            break;
-        case '3': 
-            changeColorById(2);
-            changeColorById(7);
-            break;
-        case '4': 
-            changeColorById(0);
-            changeColorById(5);
-            changeColorById(8);
-            break;
-        case '5': 
-            changeColorById(1);
-            changeColorById(4);
-            changeColorById(6);
-            changeColorById(9);
-            break;
-        case '6': 
-            changeColorById(2);
-            changeColorById(5);
-            changeColorById(7);
-            changeColorById(10);
-            break;
-        case '7': 
-            changeColorById(3);
-            changeColorById(6);
-            changeColorById(11);
-            break;
-        case '8': 
-            changeColorById(4);
-            changeColorById(9);
-            changeColorById(12);
-            break;
-        case '9': 
-            changeColorById(5);
-            changeColorById(8);
-            changeColorById(10);
-            changeColorById(13);
-            break;
-        case '10': 
-            changeColorById(6);
-            changeColorById(9);
-            changeColorById(11);
-            changeColorById(14);
-            break;
-        case '11': 
-            changeColorById(7);
-            changeColorById(10);
-            changeColorById(15);
-            break;
-        case '12': 
-            changeColorById(8);
-            changeColorById(13);
-            break;
-        case '13': 
-            changeColorById(9);
-            changeColorById(12);
-            changeColorById(14);
-            break;
-        case '14': 
-            changeColorById(10);
-            changeColorById(13);
-            changeColorById(15);
-            break;
-        case '15': 
-            changeColorById(11);
-            changeColorById(14);
-            break;
-      }
-    
+    console.log(id);
+    if(id != 0 && id != 4 && id != 8 && id != 12) {
+            changeColorById(id - 1);
+    };
+    if(id != 3 && id != 7 && id != 11 && id != 15) {
+        changeColorById(Number(id) + 1);
+    };
+    if(id < 12) {
+        changeColorById(Number(id) + 4);
+    };
+    if(id > 3) {
+        changeColorById(Number(id) - 4);
+    };
 };
