@@ -1,17 +1,9 @@
 var game = document.getElementById('board');//get board
-var grid = document.createElement('grid');//create grid
-var size = 0;
-//var size = Number(prompt('Please set size of grid'));//user can select size of grid 
-getUserChoice(prompt('Please set size of grid'));      
-var gridSize = size * 100 +size * 4;//size of grid
+var grid = document.createElement('section');//create grid
 grid.setAttribute('class','grid');
-grid.setAttribute('id','grid');
 game.appendChild(grid);//add grid to board
 
-document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
-document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
-
-for(i = 0; i < (Math.pow(size,2)); i++)
+for(i = 0; i < 16; i++)
 {
     var cube = document.createElement('div');//create div element and assign it to var cube
     var random = Math.random()+0.5;//get random digit
@@ -29,14 +21,6 @@ grid.addEventListener('click',function(event){
     selectNaibor(clicked.id);//select elements to changed with clicked
 });
 
-//function for checking user's selection
-function getUserChoice(userInput){
-    if(userInput >= 0 && userInput < 10){
-        size = userInput;}
-    else {
-        getUserChoice(prompt('Please enter a valid number'));
-    }
-} 
 //function to changing color of clicked element and its naibors
 function changeColor(cube){
     if (cube.classList.contains('grid')){

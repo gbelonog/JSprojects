@@ -2,24 +2,22 @@ body {
     background: rgb(132, 200, 245);
 }
 .grid {
-    --grid-width: 400px;
-    --grid-height: 400px;
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
     background:rgb(139, 139, 226);
-    height: var(--grid-height);
-    width: var(--grid-width);
+    height: 500px;
+    width: 500px;
     flex-wrap: wrap;
 }
 .greenState{
-    margin: 2px;
+    margin: 10px;
     height: 100px;
     width: 100px;
     background: rgb(113, 202, 113);
 }
 .yellowState{
-    margin: 2px;
+    margin: 10px;
     height: 100px;
     width: 100px;
     background: #eef584;
