@@ -12,13 +12,13 @@ body {
     width: var(--grid-width);
     flex-wrap: wrap;
 }
-.greenState{
+.firstState{
     margin: 2px;
     height: 100px;
     width: 100px;
     background: rgb(113, 202, 113);
 }
-.yellowState{
+.secondState{
     margin: 2px;
     height: 100px;
     width: 100px;
