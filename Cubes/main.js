@@ -5,16 +5,17 @@ getUserChoice(prompt('Please set size of grid'));
 function victoryCheck(size){
     var counter = 0;
     for(i = 0; i < size * size; i++){
-            //console.log(document.getElementById(0).className);
         if(document.getElementById(i).className == 'firstState'){
-            counter++;
+            counter++;//count green elements
         };
     };
-    if (counter == size * size || counter == 0){
+    if (counter == size * size || counter == 0){//if all elements are green or yellow = victory
         console.log('victory');
         for(i = 0; i < size * size; i++){
-            document.getElementById(i).remove();
+            document.getElementById(i).remove();//removing cubes
         };
+
+        document.getElementById('grid').innerText = 'Victory';
     };
 };
 
@@ -50,6 +51,7 @@ function createGrid(size){
         changeColor(clicked);//change color of clicked element
         selectNaibor(clicked.id, size);//select elements to changed with clicked
     });
+     
 };
 
 //function for checking user's selection
