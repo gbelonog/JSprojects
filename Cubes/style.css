@@ -13,8 +13,9 @@ body {
     width: var(--grid-width);
     flex-wrap: wrap;
     color: #eef584;
-    font-size: 50px;
-    text-shadow: white;
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    
 }
 .firstState{
     margin: 2px;
