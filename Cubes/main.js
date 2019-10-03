@@ -10,11 +10,7 @@ function victoryCheck(size){
         };
     };
     if (counter == size * size || counter == 0){//if all elements are green or yellow = victory
-        console.log('victory');
-        for(i = 0; i < size * size; i++){
-            document.getElementById(i).remove();//removing cubes
-        };
-
+        removeCubesFromGrid(size);
         document.getElementById('grid').innerText = 'Victory';
     };
 };
@@ -23,27 +19,23 @@ function victoryCheck(size){
 function createGrid(size){
     var grid = document.createElement('grid');//create grid      
     var gridSize = size * 100 +size * 4;//size of grid
+    var counterAllCubesTheSame = 0;
+
     grid.setAttribute('class','grid');
     grid.setAttribute('id','grid');
     game.appendChild(grid);//add grid to board
 
     document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
     document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
-
     
-
-    for(i = 0; i < (Math.pow(size,2)); i++){
-        var cube = document.createElement('div');//create div element and assign it to var cube
-        var random = Math.random()+0.5;//get random digit
-        if (random > 1){
-            cube.classList.add('secondState');//apply a yellow color to cube 
+    counterAllCubesTheSame = addCubesToGrid(grid, size);//add cubes
+      
+        //verify that not all cubes have the same color
+        while(counterAllCubesTheSame == size * size|| counterAllCubesTheSame == 0){
+            removeCubesFromGrid(size);    
+            counterAllCubesTheSame = addCubesToGrid(grid, size);
         }
-        else {
-            cube.classList.add('firstState');//apply a green color to cube 
-        }  
-        cube.id = i;//add id to cube
-        grid.appendChild(cube);//add cube to grid
-    };
+    
     
     //add event listener to grid
     grid.addEventListener('click',function(event){
@@ -53,11 +45,36 @@ function createGrid(size){
     });
      
 };
+//function to remove all cubes from grid
+function removeCubesFromGrid(size){
+    for(i = 0; i < size * size; i++){
+        document.getElementById(i).remove();//removing cubes
+    };    
+};
+
+
+//function to add cubes to grid
+function addCubesToGrid(grid, size){
+    var counter = 0;
+    for(i = 0; i < (Math.pow(size,2)); i++){
+        var cube = document.createElement('div');//create div element and assign it to var cube
+        var random = Math.random()+0.5;//get random digit
+        if (random > 1){
+            cube.classList.add('secondState');//apply a yellow color to cube 
+            counter++;
+        }
+        else {
+            cube.classList.add('firstState');//apply a green color to cube 
+        }  
+        cube.id = i;//add id to cube
+        grid.appendChild(cube);//add cube to grid
+    };
+    return counter;
+};
 
 //function for checking user's selection
 function getUserChoice(userInput){
-    if(userInput >= 0 && userInput <= 10){
-        //size = userInput;
+    if(userInput > 1 && userInput < 10){
         createGrid(userInput);
     }
     else {

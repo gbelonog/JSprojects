@@ -15,13 +15,14 @@ body {
     color: #eef584;
     font-size: 30px;
     font-family: 'Courier New', Courier, monospace;
+    rotate: 0.25turn;
     
 }
 .firstState{
     margin: 2px;
     height: 100px;
     width: 100px;
-    background: green;
+    background: rgb(87, 199, 96);
     transition-duration: 2s;
 }
 .secondState{
