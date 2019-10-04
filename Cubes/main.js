@@ -1,5 +1,18 @@
 var game = document.getElementById('board');//get board
-getUserChoice(prompt('Please set size of grid')); 
+
+//-----controller-----
+getUserChoice(prompt('Please set size of grid')); //ask user about size of grid
+//function for checking user's selection
+function getUserChoice(userInput){
+    if(userInput > 1 && userInput < 10){
+        createGrid(userInput);
+    }
+    else {
+        getUserChoice(prompt('Please enter a valid number'));
+    }
+} 
+
+//--------model----------
 
 //function checks that all cubes are in the same state
 function victoryCheck(size){
@@ -11,7 +24,8 @@ function victoryCheck(size){
     };
     if (counter == size * size || counter == 0){//if all elements are green or yellow = victory
         removeCubesFromGrid(size);
-        document.getElementById('grid').innerText = 'Victory';
+        //document.getElementById('grid').innerText = 'Victory';
+        sayAboutVictory();
     };
 };
 
@@ -25,8 +39,10 @@ function createGrid(size){
     grid.setAttribute('id','grid');
     game.appendChild(grid);//add grid to board
 
-    document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
-    document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
+    //document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
+    //document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
+    setPropertyOfGrid('--grid-width', gridSize);// set width property in css file
+    setPropertyOfGrid('--grid-height', gridSize);// set height property in css file
     
     counterAllCubesTheSame = addCubesToGrid(grid, size);//add cubes
       
@@ -43,6 +59,7 @@ function createGrid(size){
         changeColor(clicked);//change color of clicked element
         selectNaibor(clicked.id, size);//select elements to changed with clicked
     });
+
      
 };
 //function to remove all cubes from grid
@@ -51,7 +68,6 @@ function removeCubesFromGrid(size){
         document.getElementById(i).remove();//removing cubes
     };    
 };
-
 
 //function to add cubes to grid
 function addCubesToGrid(grid, size){
@@ -72,15 +88,6 @@ function addCubesToGrid(grid, size){
     return counter;
 };
 
-//function for checking user's selection
-function getUserChoice(userInput){
-    if(userInput > 1 && userInput < 10){
-        createGrid(userInput);
-    }
-    else {
-        getUserChoice(prompt('Please enter a valid number'));
-    }
-} 
 //function to changing color of clicked element and its naibors
 function changeColor(cube){
     if (cube.classList.contains('grid')){
@@ -118,4 +125,12 @@ function selectNaibor(id, size){
         changeColorById(Number(id) - size);
     };
     victoryCheck(size);
+};
+
+//------------view--------------
+function sayAboutVictory(){
+    document.getElementById('grid').innerText = 'Victory';
+};
+function setPropertyOfGrid(heightOrWidth, gridSize){
+    document.getElementById('grid').style.setProperty(heightOrWidth, gridSize + 'px');
 };
