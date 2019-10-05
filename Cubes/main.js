@@ -49,6 +49,7 @@ function createGrid(size){
     //add event listener to grid
     grid.addEventListener('click',function(event){
         var clicked = event.target;// var for clicked item
+        console.log(clicked);
         changeColor(clicked);//change color of clicked element
         selectNaibor(clicked.id, size);//select elements to changed with clicked
     });
@@ -98,6 +99,7 @@ function addCubesToGrid(grid, size){
             grid.appendChild(cube);//add cube to grid
         };
     };
+    console.log(grid);
     return counter;
 };
 
@@ -127,11 +129,25 @@ function selectNaibor(id, size){
     size = Number(size);
     x = document.getElementById(id).getAttribute('x');
     y = document.getElementById(id).getAttribute('y');
-
-    console.log(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + y + '"'+']'));
+ //   console.log(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + y + '"'+']'));
+ //   console.log(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + (Number(y)+1) + '"'+']'));
     //console.log(document.querySelector('[x="1"][y="2"]'));
-    changeColor(document.querySelector('[x='+ '"' + Number(x+1) + '"'+'][y='+ '"' + Number(y+1) + '"'+']'));
+    //changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + (Number(y)+1) + '"'+']'));
 
+    if(x < size - 1){
+        changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + y + '"'+']'));
+    };
+    if(x > 0){
+        changeColor(document.querySelector('[x='+ '"' + (Number(x)-1) + '"'+'][y='+ '"' + y + '"'+']'));
+    };
+    if(y < size - 1){
+        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(x)+1) + '"'+']'));
+    };
+    if(y > 0){
+        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(x)-1) + '"'+']'));
+    };
+
+    
    /* if(id % size > 0){
         changeColorById(id - 1);
     };
