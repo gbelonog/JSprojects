@@ -36,19 +36,13 @@ function createGrid(size){
     game.appendChild(grid);//add grid to board
     gameView('setSizeOfGrid', gridSize);
     
-    counterAllCubesTheSame = addCubesToGrid(grid, size);//add cubes      
-    
-    //verify that not all cubes have the same color
-    while(counterAllCubesTheSame == size * size|| counterAllCubesTheSame == 0){
-        removeCubesFromGrid(size);    
-        counterAllCubesTheSame = addCubesToGrid(grid, size);
-    };
+    addCubesToGrid(grid, size);//add cubes      
     
     //add event listener to grid
     grid.addEventListener('click',function(event){
         var clicked = event.target;// var for clicked item
         changeColor(clicked);//change color of clicked element
-        selectNaibor(clicked.id, size);//select elements to changed with clicked
+        selectNeighbour(clicked.id, size);//select elements to changed with clicked
     });
 };   
 //function checks that all cubes are in the same state
@@ -72,32 +66,45 @@ function removeCubesFromGrid(size){
     };    
 };
 
-//function to add cubes to grid 
+//function to add cubes to grid (all of them are rgeen at first)
 function addCubesToGrid(grid, size){
-    var counter = 0;
+    //var counter = 0;
     var i = 0;
     for(y = 0; y < size; y++){
         for(x = 0; x < size; x++){
             var cube = document.createElement('cube');//create div element and assign it to var cube
-            var random = Math.random()+0.5;//get random digit
-            if (random > 1){
-                cube.classList.add('secondState');//apply a yellow color to cube 
-                counter++;
-            }
-            else {
-                cube.classList.add('firstState');//apply a green color to cube 
-            }  
-            cube.id = i;
-            i++;
+            cube.classList.add('firstState');//apply a green color to cube 
+            cube.id = i++;
             cube.setAttribute('x',x);//add x to cube
             cube.setAttribute('y',y);//add y to cube
-            grid.appendChild(cube);//add cube to grid
+            grid.appendChild(cube);//add cube to grid            
         };
     };
-    return counter;
+    clickToTimes(size);
 };
 
-//function to changing color of clicked element and its naibors
+//function emulates 2 clicks of user - we can get grid with different cubes
+// and we will be sure that user can win (he will need to repeat cklicks in reverse order)
+function clickToTimes(size){
+    firstRandomId = random(size);
+    secondRandomId = Math.floor(firstRandomId / 2);
+    console.log(firstRandomId);
+    console.log(secondRandomId);
+    
+    changeColor(document.getElementById(firstRandomId));//change color of first random element
+    selectNeighbour(firstRandomId, size);//and its neighbour
+
+    changeColor(document.getElementById(secondRandomId));//change color of second random element
+    selectNeighbour(secondRandomId, size);//and its neighbour
+
+};
+//function to get random digit < size * size
+function random(size){
+    return Math.floor(Math.random()*100) % (Math.pow(Number(size),2));
+};
+
+
+//function to changing color of clicked element and its neighbours
 function changeColor(cube){
     if (cube.classList.contains('grid')){
         return 0;
@@ -112,14 +119,14 @@ function changeColor(cube){
     }
 };
 
-//this function makes selectNaibor function not so big
+//this function makes selectNeighbour function not so big
 function changeColorById(n){
         elementNearClicked = document.getElementById(n);
         changeColor(elementNearClicked);
     };    
     
-//function for selecting naibors of clicked element
-function selectNaibor(id, size){
+//function for selecting neighbours of clicked element
+function selectNeighbour(id, size){
     size = Number(size);
     x = document.getElementById(id).getAttribute('x');
     y = document.getElementById(id).getAttribute('y');
