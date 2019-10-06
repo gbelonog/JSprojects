@@ -1,5 +1,3 @@
-//var game = document.getElementById('board');//get board
-
 //-----controller-----
 getUserChoice(prompt('Please set size of grid')); //ask user about size of grid
 //function for checking user's selection
@@ -41,15 +39,14 @@ function createGrid(size){
     counterAllCubesTheSame = addCubesToGrid(grid, size);//add cubes      
     
     //verify that not all cubes have the same color
-/*    while(counterAllCubesTheSame == size * size|| counterAllCubesTheSame == 0){
+    while(counterAllCubesTheSame == size * size|| counterAllCubesTheSame == 0){
         removeCubesFromGrid(size);    
         counterAllCubesTheSame = addCubesToGrid(grid, size);
-    };*/
+    };
     
     //add event listener to grid
     grid.addEventListener('click',function(event){
         var clicked = event.target;// var for clicked item
-        console.log(clicked);
         changeColor(clicked);//change color of clicked element
         selectNaibor(clicked.id, size);//select elements to changed with clicked
     });
@@ -94,12 +91,9 @@ function addCubesToGrid(grid, size){
             i++;
             cube.setAttribute('x',x);//add x to cube
             cube.setAttribute('y',y);//add y to cube
-            //cube.x = 'x' + x;
-            //cube.y = 'y' + y;//add y to cube
             grid.appendChild(cube);//add cube to grid
         };
     };
-    console.log(grid);
     return counter;
 };
 
@@ -129,11 +123,6 @@ function selectNaibor(id, size){
     size = Number(size);
     x = document.getElementById(id).getAttribute('x');
     y = document.getElementById(id).getAttribute('y');
- //   console.log(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + y + '"'+']'));
- //   console.log(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + (Number(y)+1) + '"'+']'));
-    //console.log(document.querySelector('[x="1"][y="2"]'));
-    //changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + (Number(y)+1) + '"'+']'));
-
     if(x < size - 1){
         changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + y + '"'+']'));
     };
@@ -145,21 +134,7 @@ function selectNaibor(id, size){
     };
     if(y > 0){
         changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(y)-1) + '"'+']'));
-    };
-
-    
-   /* if(id % size > 0){
-        changeColorById(id - 1);
-    };
-    if((id % size) != size - 1) {
-        changeColorById(Number(id) + 1);
-    };
-    if(id < size * (size - 1)) {
-        changeColorById(Number(id) + size);
-    };
-    if(id > size - 1) {
-        changeColorById(Number(id) - size);
-    };*/
+    };    
     victoryCheck(size);
 };
 
