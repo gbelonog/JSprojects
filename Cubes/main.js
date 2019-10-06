@@ -79,8 +79,8 @@ function removeCubesFromGrid(size){
 function addCubesToGrid(grid, size){
     var counter = 0;
     var i = 0;
-    for(x = 0; x < size; x++){
-        for(y = 0; y < size; y++){
+    for(y = 0; y < size; y++){
+        for(x = 0; x < size; x++){
             var cube = document.createElement('cube');//create div element and assign it to var cube
             var random = Math.random()+0.5;//get random digit
             if (random > 1){
@@ -141,10 +141,10 @@ function selectNaibor(id, size){
         changeColor(document.querySelector('[x='+ '"' + (Number(x)-1) + '"'+'][y='+ '"' + y + '"'+']'));
     };
     if(y < size - 1){
-        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(x)+1) + '"'+']'));
+        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(y)+1) + '"'+']'));
     };
     if(y > 0){
-        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(x)-1) + '"'+']'));
+        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(y)-1) + '"'+']'));
     };
 
     
