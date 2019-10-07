@@ -29,6 +29,7 @@ function createGrid(size){
     var game = document.getElementById('board');//get board
     var grid = document.createElement('grid');//create grid      
     var gridSize = size * 100 +size * 4;//size of grid
+    var counterAllCubesTheSame = 0;
     
     grid.setAttribute('class','grid');
     grid.setAttribute('id','grid');
@@ -67,6 +68,7 @@ function removeCubesFromGrid(size){
 
 //function to add cubes to grid (all of them are rgeen at first)
 function addCubesToGrid(grid, size){
+    //var counter = 0;
     var i = 0;
     for(y = 0; y < size; y++){
         for(x = 0; x < size; x++){
