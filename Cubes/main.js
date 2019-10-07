@@ -1,6 +1,49 @@
-var game = document.getElementById('board');//get board
-getUserChoice(prompt('Please set size of grid')); 
+//-----controller-----
+getUserChoice(prompt('Please set size of grid')); //ask user about size of grid
+//function for checking user's selection
+function getUserChoice(userInput){
+    if(userInput > 1 && userInput < 10){
+        createGrid(userInput);
+    }
+    else {
+        getUserChoice(prompt('Please enter a valid number'));
+    }
+} 
+//------------view--------------
+function gameView (whatToDo, size){
+    if (whatToDo == 'victory'){    
+        document.getElementById('grid').innerText = 'Victory';//victory appears on grid
+    };
 
+    if (whatToDo == 'setSizeOfGrid'){
+        document.getElementById('grid').style.setProperty('--grid-width', size + 'px');// set width property in css file
+        document.getElementById('grid').style.setProperty('--grid-height', size + 'px');// set height property in css file
+    };
+};
+
+
+//--------model----------
+
+//function for creating grid
+function createGrid(size){
+    var game = document.getElementById('board');//get board
+    var grid = document.createElement('grid');//create grid      
+    var gridSize = size * 100 +size * 4;//size of grid
+    
+    grid.setAttribute('class','grid');
+    grid.setAttribute('id','grid');
+    game.appendChild(grid);//add grid to board
+    gameView('setSizeOfGrid', gridSize);
+    
+    addCubesToGrid(grid, size);//add cubes      
+    
+    //add event listener to grid
+    grid.addEventListener('click',function(event){
+        var clicked = event.target;// var for clicked item
+        changeColor(clicked);//change color of clicked element
+        selectNeighbour(clicked.id, size);//select elements to changed with clicked
+    });
+};   
 //function checks that all cubes are in the same state
 function victoryCheck(size){
     var counter = 0;
@@ -10,61 +53,56 @@ function victoryCheck(size){
         };
     };
     if (counter == size * size || counter == 0){//if all elements are green or yellow = victory
-        console.log('victory');
-        for(i = 0; i < size * size; i++){
-            document.getElementById(i).remove();//removing cubes
-        };
-
-        document.getElementById('grid').innerText = 'Victory';
+        removeCubesFromGrid(size);
+        gameView('victory');
     };
 };
-
-//function for creating grid
-function createGrid(size){
-    var grid = document.createElement('grid');//create grid      
-    var gridSize = size * 100 +size * 4;//size of grid
-    grid.setAttribute('class','grid');
-    grid.setAttribute('id','grid');
-    game.appendChild(grid);//add grid to board
-
-    document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
-    document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
-
-    
-
-    for(i = 0; i < (Math.pow(size,2)); i++){
-        var cube = document.createElement('div');//create div element and assign it to var cube
-        var random = Math.random()+0.5;//get random digit
-        if (random > 1){
-            cube.classList.add('secondState');//apply a yellow color to cube 
-        }
-        else {
-            cube.classList.add('firstState');//apply a green color to cube 
-        }  
-        cube.id = i;//add id to cube
-        grid.appendChild(cube);//add cube to grid
-    };
-    
-    //add event listener to grid
-    grid.addEventListener('click',function(event){
-        var clicked = event.target;// var for clicked item
-        changeColor(clicked);//change color of clicked element
-        selectNaibor(clicked.id, size);//select elements to changed with clicked
-    });
      
+//function to remove all cubes from grid
+function removeCubesFromGrid(size){
+    for(i = 0; i < size * size; i++){
+        document.getElementById(i).remove();//removing cubes
+    };    
 };
 
-//function for checking user's selection
-function getUserChoice(userInput){
-    if(userInput >= 0 && userInput <= 10){
-        //size = userInput;
-        createGrid(userInput);
-    }
-    else {
-        getUserChoice(prompt('Please enter a valid number'));
-    }
-} 
-//function to changing color of clicked element and its naibors
+//function to add cubes to grid (all of them are rgeen at first)
+function addCubesToGrid(grid, size){
+    var i = 0;
+    for(y = 0; y < size; y++){
+        for(x = 0; x < size; x++){
+            var cube = document.createElement('cube');//create div element and assign it to var cube
+            cube.classList.add('firstState');//apply a green color to cube 
+            cube.id = i++;
+            cube.setAttribute('x',x);//add x to cube
+            cube.setAttribute('y',y);//add y to cube
+            grid.appendChild(cube);//add cube to grid            
+        };
+    };
+    clickToTimes(size);
+};
+
+//function emulates 2 clicks of user - we can get grid with different cubes
+// and we will be sure that user can win (he will need to repeat cklicks in reverse order)
+function clickToTimes(size){
+    firstRandomId = random(size);
+    secondRandomId = Math.floor(firstRandomId / 2);
+    console.log(firstRandomId);
+    console.log(secondRandomId);
+    
+    changeColor(document.getElementById(firstRandomId));//change color of first random element
+    selectNeighbour(firstRandomId, size);//and its neighbour
+
+    changeColor(document.getElementById(secondRandomId));//change color of second random element
+    selectNeighbour(secondRandomId, size);//and its neighbour
+
+};
+//function to get random digit < size * size
+function random(size){
+    return Math.floor(Math.random()*100) % (Math.pow(Number(size),2));
+};
+
+
+//function to changing color of clicked element and its neighbours
 function changeColor(cube){
     if (cube.classList.contains('grid')){
         return 0;
@@ -79,26 +117,28 @@ function changeColor(cube){
     }
 };
 
-//this function makes selectNaibor function not so big
+//this function makes selectNeighbour function not so big
 function changeColorById(n){
         elementNearClicked = document.getElementById(n);
         changeColor(elementNearClicked);
     };    
     
-//function for selecting naibors of clicked element
-function selectNaibor(id, size){
+//function for selecting neighbours of clicked element
+function selectNeighbour(id, size){
     size = Number(size);
-    if(id % size > 0){
-        changeColorById(id - 1);
+    x = document.getElementById(id).getAttribute('x');
+    y = document.getElementById(id).getAttribute('y');
+    if(x < size - 1){
+        changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + y + '"'+']'));
     };
-    if((id % size) != size - 1) {
-        changeColorById(Number(id) + 1);
+    if(x > 0){
+        changeColor(document.querySelector('[x='+ '"' + (Number(x)-1) + '"'+'][y='+ '"' + y + '"'+']'));
     };
-    if(id < size * (size - 1)) {
-        changeColorById(Number(id) + size);
+    if(y < size - 1){
+        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(y)+1) + '"'+']'));
     };
-    if(id > size - 1) {
-        changeColorById(Number(id) - size);
-    };
+    if(y > 0){
+        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(y)-1) + '"'+']'));
+    };    
     victoryCheck(size);
 };
