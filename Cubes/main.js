@@ -3,47 +3,33 @@ getUserChoice(prompt('Please set size of grid')); //ask user about size of grid
 //function for checking user's selection
 function getUserChoice(userInput){
     if(userInput > 1 && userInput < 10){
-        createGrid(userInput);
+        //createGrid(userInput);
+        gameModel(userInput);
     }
     else {
         getUserChoice(prompt('Please enter a valid number'));
     }
 } 
-//------------view--------------
-function gameView (whatToDo, size){
-    if (whatToDo == 'victory'){    
-        document.getElementById('grid').innerText = 'Victory';//victory appears on grid
-    };
-
-    if (whatToDo == 'setSizeOfGrid'){
-        document.getElementById('grid').style.setProperty('--grid-width', size + 'px');// set width property in css file
-        document.getElementById('grid').style.setProperty('--grid-height', size + 'px');// set height property in css file
-    };
-};
 
 
 //--------model----------
+function gameModel(size){
+    var cubesArray = [];
+    for(var i = 0; i < size * size; i++){
+        cubesArray[i] = 0;
+    };   
+    function emulateUserClicks(size){
+        var firstRandomId = Math.floor(Math.random()*100) % (Math.pow(Number(size),2));
+        var secondRandomId = Math.floor(firstRandomId / 2);
+        console.log(firstRandomId);
+        console.log(secondRandomId);
 
-//function for creating grid
-function createGrid(size){
-    var game = document.getElementById('board');//get board
-    var grid = document.createElement('grid');//create grid      
-    var gridSize = size * 100 +size * 4;//size of grid
-    
-    grid.setAttribute('class','grid');
-    grid.setAttribute('id','grid');
-    game.appendChild(grid);//add grid to board
-    gameView('setSizeOfGrid', gridSize);
-    
-    addCubesToGrid(grid, size);//add cubes      
-    
-    //add event listener to grid
-    grid.addEventListener('click',function(event){
-        var clicked = event.target;// var for clicked item
-        changeColor(clicked);//change color of clicked element
-        selectNeighbour(clicked.id, size);//select elements to changed with clicked
-    });
-};   
+        cubesArray[firstRandomId] = 1;
+        cubesArray[secondRandomId] = 1;
+    };
+    emulateUserClicks(size);
+    drowGrid(cubesArray);
+
 //function checks that all cubes are in the same state
 function victoryCheck(size){
     var counter = 0;
@@ -54,22 +40,23 @@ function victoryCheck(size){
     };
     if (counter == size * size || counter == 0){//if all elements are green or yellow = victory
         removeCubesFromGrid(size);
-        gameView('victory');
+        document.getElementById('grid').innerText = 'Victory';//victory appears on grid
+       // gameView('victory');
     };
 };
      
 //function to remove all cubes from grid
-function removeCubesFromGrid(size){
-    for(i = 0; i < size * size; i++){
+/*function removeCubesFromGrid(size){
+    for(var i = 0; i < size * size; i++){
         document.getElementById(i).remove();//removing cubes
     };    
-};
+};*/
 
 //function to add cubes to grid (all of them are rgeen at first)
-function addCubesToGrid(grid, size){
+/*function addCubesToGrid(grid, size){
     var i = 0;
-    for(y = 0; y < size; y++){
-        for(x = 0; x < size; x++){
+    for(var y = 0; y < size; y++){
+        for(var x = 0; x < size; x++){
             var cube = document.createElement('cube');//create div element and assign it to var cube
             cube.classList.add('firstState');//apply a green color to cube 
             cube.id = i++;
@@ -79,13 +66,13 @@ function addCubesToGrid(grid, size){
         };
     };
     clickToTimes(size);
-};
+};*/
 
 //function emulates 2 clicks of user - we can get grid with different cubes
 // and we will be sure that user can win (he will need to repeat cklicks in reverse order)
-function clickToTimes(size){
-    firstRandomId = random(size);
-    secondRandomId = Math.floor(firstRandomId / 2);
+/*function emulateUserClicks(size){
+    var firstRandomId = random(size);
+    var secondRandomId = Math.floor(firstRandomId / 2);
     console.log(firstRandomId);
     console.log(secondRandomId);
     
@@ -99,11 +86,11 @@ function clickToTimes(size){
 //function to get random digit < size * size
 function random(size){
     return Math.floor(Math.random()*100) % (Math.pow(Number(size),2));
-};
+};*/
 
 
 //function to changing color of clicked element and its neighbours
-function changeColor(cube){
+/*function changeColor(cube){
     if (cube.classList.contains('grid')){
         return 0;
     };
@@ -115,19 +102,13 @@ function changeColor(cube){
         cube.classList.remove('firstState');
         cube.classList.add('secondState');
     }
-};
-
-//this function makes selectNeighbour function not so big
-function changeColorById(n){
-        elementNearClicked = document.getElementById(n);
-        changeColor(elementNearClicked);
-    };    
+};*/  
     
 //function for selecting neighbours of clicked element
 function selectNeighbour(id, size){
-    size = Number(size);
-    x = document.getElementById(id).getAttribute('x');
-    y = document.getElementById(id).getAttribute('y');
+    var size = Number(size);
+    var x = document.getElementById(id).getAttribute('x');
+    var y = document.getElementById(id).getAttribute('y');
     if(x < size - 1){
         changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + y + '"'+']'));
     };
@@ -141,6 +122,73 @@ function selectNeighbour(id, size){
         changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(y)-1) + '"'+']'));
     };    
     victoryCheck(size);
+};
+};
+//------------view--------------
+function drowGrid(cubesArray){
+    var size = cubesArray.length / 2;
+    var game = document.getElementById('board');//get board
+    var grid = document.createElement('grid');//create grid 
+    var gridSize = size * 100 +size * 4;
+    grid.setAttribute('class','grid');
+    grid.setAttribute('id','grid');
+    game.appendChild(grid);//add grid to board
+    document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
+    document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
+    //removeCubesFromGrid(size);
+    addCubesToGrid(grid, size);//add cubes 
+    console.log(grid);
+    
+    grid.addEventListener('click',function(event){
+        var clicked = event.target;// var for clicked item
+
+       // changeColor(clicked);//change color of clicked element
+       // selectNeighbour(clicked.id, size);//select elements to changed with clicked
+    });
+
+    function addCubesToGrid(grid, size){
+        var i = 0;
+        for(var y = 0; y < size; y++){
+            for(var x = 0; x < size; x++){
+                var cube = document.createElement('cube');//create div element and assign it to var cube
+                if (cubesArray[i] == 0){
+                    cube.classList.add('firstState');//apply a green color to cube
+                }
+                else{
+                    cube.classList.add('secondState');//apply a green color to cube
+                } 
+                cube.id = i++;
+                cube.setAttribute('x',x);//add x to cube
+                cube.setAttribute('y',y);//add y to cube
+                grid.appendChild(cube);//add cube to grid            
+            };
+        };
+        //emulateUserClicks(size);
+    };
+         
+//function to remove all cubes from grid
+function removeCubesFromGrid(size){
+    for(var i = 0; i < size * size; i++){
+        //console.log(document.getElementById(i));
+        if (document.getElementById(i) > 0){
+        document.getElementById(i).remove();//removing cubes
+        };
+    };    
+};
+   /* function changeColor(cube){
+        if (cube.classList.contains('grid')){
+            return 0;
+        };
+        if (cube.classList.contains('secondState')){
+            cube.classList.remove('secondState');
+            cube.classList.add('firstState');
+        }
+        else {
+            cube.classList.remove('firstState');
+            cube.classList.add('secondState');
+        }
+    };*/
+
 };
 
 
