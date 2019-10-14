@@ -8,13 +8,13 @@ class CubesController{
         this._cubesModel = cubesModel;
         };
     //ask user about size
-    start = function start(){
+    start(){
         var size = prompt('Please set size of grid');
-        this._cubesModel.size = size.bind(this);
-        this._cubesModel.createGrid();
+        _cubesModel.size = size;
+        cubesModel.createGrid();
         };
         
-    clickOnCube = function onClickCube(e) {
+    onClickCube(e) {
         var clicked = e.currentTarget;
         cubesModel.cubesArray[clicked.id] = 1;
         //cubesModel.createGrid();
@@ -28,7 +28,8 @@ class CubesModel{
         this. cubesArray = [];
         this.size = 0;
     }
-    createGrid = function createGrid(){
+    
+    createGrid(){
         for(var i = 0; i < this.size * this.size; i++){
             this.cubesArray[i] = 0;
             console.log(cubesArray[i]);
@@ -325,7 +326,7 @@ function removeCubesFromGrid(size){
 
 let myGameModel  = new CubesModel();
 let myGameView = new CubesView([0,1]);
-let myGameController = new CubesController(myGameView,myGameModel);
+let myGameController = new CubesController(myGameView, myGameModel);
 myGameController.start();
 
 
