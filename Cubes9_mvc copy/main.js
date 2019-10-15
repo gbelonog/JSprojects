@@ -3,81 +3,126 @@
 //-------controller---------
 class CubesController{
     //constructor
-    CubesController(cubesView, cubesModel) {
-        this._cubesView = cubesView;
-        this._cubesModel = cubesModel;
+    constructor(cubesView, cubesModel) {
+        this.cubesView = cubesView;
+        this.cubesModel = cubesModel;
+        
         };
     //ask user about size
     start(){
         var size = prompt('Please set size of grid');
-        _cubesModel.size = size;
-        cubesModel.createGrid();
+        this.cubesModel.size = size;
+        this.cubesModel.createGrid();
+        this.onClickCube(this.cubesModel);
         };
         
-    onClickCube(e) {
-        var clicked = e.currentTarget;
-        cubesModel.cubesArray[clicked.id] = 1;
-        //cubesModel.createGrid();
-    };
-    
-};
-//----model------
-class CubesModel{
-    //constructor
-    cubesModel(){
-        this. cubesArray = [];
-        this.size = 0;
-    }
-    
-    createGrid(){
-        for(var i = 0; i < this.size * this.size; i++){
-            this.cubesArray[i] = 0;
-            console.log(cubesArray[i]);
-        };
+    onClickCube(cubesModel) {
+        
+        this.cubesView.grid.addEventListener('click',function(event){
+            
+            var clicked = event.target;// var for clicked item
+            cubesModel.cubesArray[clicked.id] = 1;
+            cubesModel.drow();
+            
+            
+            
+        });
+      
+        
         
     };
-    //createGrid();
-    //emulateUserClicks(size);
-    //drowGrid(cubesArray);
- 
-
-
-
-
-    /*function emulateUserClicks(size){
-        var firstRandomId = Math.floor(Math.random()*100) % (Math.pow(Number(size),2));
-        var secondRandomId = Math.floor(firstRandomId / 2);
-        console.log(firstRandomId);
-        console.log(secondRandomId);
-
-        cubesArray[firstRandomId] = 1;
-        cubesArray[secondRandomId] = 1;
-    };   */
-};
-//------view---------
-class CubesView{
-    drowGrid = function drowGrid(cubesArray) {
-        var size = cubesArray.length / 2;
-        var game = document.getElementById('board');//get board
-        var grid = document.createElement('grid');//create grid 
-        var gridSize = size * 100 +size * 4;
-        grid.setAttribute('class','grid');
-        grid.setAttribute('id','grid');
-        game.appendChild(grid);//add grid to board
-        document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
-        document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
-        //removeCubesFromGrid(size);
-        addCubesToGrid(grid, size);//add cubes 
-        console.log(grid);
-    };
+    //onClickCube();
     /*grid.addEventListener('click',function(event){
         var clicked = event.target;// var for clicked item
         controller('click', clicked.id);
        // changeColor(clicked);//change color of clicked element
        // selectNeighbour(clicked.id, size);//select elements to changed with clicked
     });*/
+};
+//----model------
+class CubesModel{
+    //constructor
+    constructor(cubesView){
+        this.cubesArray = [];
+        this.size = 0;
+        this.cubesView = cubesView;
+    }
+    createGrid(){
+        for(var i = 0; i < this.size * this.size; i++){
+            this.cubesArray[i] = 0;    
+        };
+        this.emulateUserClicks();
+        this.drow();
+    };
+    drow(){
+        console.log(this.cubesArray);
+        this.cubesView.removeGrid();
+        this.cubesView.drowGrid(this.cubesArray);
+    };
 
-    addCubesToGrid = function addCubesToGrid(grid, size){
+    //createGrid();
+    //emulateUserClicks(size);
+    //drowGrid(cubesArray);
+    emulateUserClicks(){
+        var firstRandomId = Math.floor(Math.random()*100) % (Math.pow(Number(this.size),2));
+        var secondRandomId = Math.floor(firstRandomId / 2);
+        console.log(firstRandomId);
+        console.log(secondRandomId);
+
+        this.cubesArray[firstRandomId] = 1;
+        this.cubesArray[secondRandomId] = 1;
+    }; 
+    //function to remove all cubes from grid
+    removeCubesFromGrid(){
+        this.cubesArray = [];   
+    };
+    
+   /* getUserChoice(userInput){
+        if(userInput > 1 && userInput < 10){
+
+            this.createGrid();
+           // gameModel(userInput);
+        }
+        else {
+            getUserChoice(prompt('Please enter a valid number'));
+        }   
+    } */
+};
+//------view---------
+class CubesView{
+    constructor(){
+        this.grid = 0;
+        this.cubesArray = [];
+    };
+    drowGrid(cubesArray) {
+        var size = cubesArray.length / 2;
+        var game = document.getElementById('board');//get board
+        this.grid = document.createElement('grid');//create grid 
+        var gridSize = size * 100 +size * 4;
+        this.grid.setAttribute('class','grid');
+        this.grid.setAttribute('id','grid');
+        game.appendChild(this.grid);//add grid to board
+        document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
+        document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
+        //removeCubesFromGrid(size);
+        this.addCubesToGrid(cubesArray, this.grid, size);//add cubes 
+        //console.log(grid);
+    //};
+       /* grid.addEventListener('click',function(event){
+            var clicked = event.target;// var for clicked item
+            console.log(clicked.id);
+            //this.cubesController.onClickCube(clicked.id);
+        //controller('click', clicked.id);
+       // changeColor(clicked);//change color of clicked element
+       // selectNeighbour(clicked.id, size);//select elements to changed with clicked
+        });*/
+    };
+    removeGrid(){
+        var element = document.getElementById('grid');
+        element.parentNode.removeChild(element);
+    };
+
+    addCubesToGrid(cubesArray, grid, size){
         var i = 0;
         for(var y = 0; y < size; y++){
             for(var x = 0; x < size; x++){
@@ -98,7 +143,7 @@ class CubesView{
     };
          
 //function to remove all cubes from grid
-removeCubesFromGrid = function removeCubesFromGrid(size){
+removeCubesFromGrid(size){
     for(var i = 0; i < size * size; i++){
         //console.log(document.getElementById(i));
         if (document.getElementById(i) > 0){
@@ -323,9 +368,8 @@ function removeCubesFromGrid(size){
     };*/
 
 };
-
-let myGameModel  = new CubesModel();
-let myGameView = new CubesView([0,1]);
+let myGameView = new CubesView();
+let myGameModel  = new CubesModel(myGameView);
 let myGameController = new CubesController(myGameView, myGameModel);
 myGameController.start();
 
