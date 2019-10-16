@@ -6,39 +6,26 @@ class CubesController{
     constructor(cubesView, cubesModel) {
         this.cubesView = cubesView;
         this.cubesModel = cubesModel;
-        
-        };
+    };
+
     //ask user about size
     start(){
         var size = prompt('Please set size of grid');
         this.cubesModel.size = size;
         this.cubesModel.createGrid();
         this.onClickCube(this.cubesModel);
-        };
-        
+    };
+    
+    //listen user clicks
     onClickCube(cubesModel) {
-        
         this.cubesView.grid.addEventListener('click',function(event){
-            
             var clicked = event.target;// var for clicked item
             cubesModel.cubesArray[clicked.id] = 1;
             cubesModel.drow();
-            
-            
-            
-        });
-      
-        
-        
+       });    
     };
-    //onClickCube();
-    /*grid.addEventListener('click',function(event){
-        var clicked = event.target;// var for clicked item
-        controller('click', clicked.id);
-       // changeColor(clicked);//change color of clicked element
-       // selectNeighbour(clicked.id, size);//select elements to changed with clicked
-    });*/
 };
+
 //----model------
 class CubesModel{
     //constructor
@@ -46,6 +33,7 @@ class CubesModel{
         this.cubesArray = [];
         this.size = 0;
         this.cubesView = cubesView;
+        this.flag = false;
     }
     createGrid(){
         for(var i = 0; i < this.size * this.size; i++){
@@ -53,11 +41,17 @@ class CubesModel{
         };
         this.emulateUserClicks();
         this.drow();
+        //this.cubesView.removeGrid();
     };
     drow(){
-        console.log(this.cubesArray);
-        this.cubesView.removeGrid();
+        //console.log(this.cubesArray);
+        //this.cubesView.removeGrid();
+        //var flag = false;
+        if (this.flag == true)
+        {this.cubesView.removeGrid()};
+
         this.cubesView.drowGrid(this.cubesArray);
+        this.flag = true;
     };
 
     //createGrid();
@@ -105,6 +99,7 @@ class CubesView{
         document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
         document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
         //removeCubesFromGrid(size);
+        
         this.addCubesToGrid(cubesArray, this.grid, size);//add cubes 
         //console.log(grid);
     //};
@@ -118,8 +113,9 @@ class CubesView{
         });*/
     };
     removeGrid(){
-        var element = document.getElementById('grid');
-        element.parentNode.removeChild(element);
+        //document.getElementById('grid').remove();
+        document.getElementById('grid').remove();
+        //element.removeChild(element);
     };
 
     addCubesToGrid(cubesArray, grid, size){
@@ -147,7 +143,7 @@ removeCubesFromGrid(size){
     for(var i = 0; i < size * size; i++){
         //console.log(document.getElementById(i));
         if (document.getElementById(i) > 0){
-        document.getElementById(i).remove();//removing cubes
+            document.getElementById(i).remove();//removing cubes
         };
     };    
 };
@@ -315,7 +311,7 @@ function drowGrid(cubesArray){
     document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
     //removeCubesFromGrid(size);
     addCubesToGrid(grid, size);//add cubes 
-    console.log(grid);
+    //console.log(grid);
     
     /*grid.addEventListener('click',function(event){
         var clicked = event.target;// var for clicked item
