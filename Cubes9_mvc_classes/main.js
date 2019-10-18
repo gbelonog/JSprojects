@@ -13,6 +13,7 @@ class CubesController{
         var size = prompt('Please set size of grid');
         this.cubesModel.size = size;
         this.cubesModel.createGrid();
+        this.cubesModel.createGrid1();
         this.onClickCube(this.cubesModel);
     };
     
@@ -32,11 +33,31 @@ class CubesModel{
     //constructor
     constructor(cubesView){
         this.cubesArray = [];
+        this.cubesArray1 = [[0,0],[1,1],[2,2],[3,3]];
         this.size = 0;
         this.cubesView = cubesView;
         this.flag = false;
     };
 
+    createGrid1(){
+       
+       // console.log(this.cubesArray1[1,1]);
+        for(var i = 0; i < this.size * this.size; i++){
+            for (var y = 0; y < this.size; y++){
+               // for (var x = 0; x < this.size; x++){
+               // this.cubesArray1[i][y][x] = 0;
+               
+               this.cubesArray1[i][y] = 0; 
+                console.log(this.cubesArray1);
+                
+                // };
+            };  
+        };
+        //var i = 1;
+        //console.log(this.cubesArray1);
+        //this.cubesArray1[0][i] = 4;
+        console.log(this.cubesArray1[0][1]);
+    };
     createGrid(){
         for(var i = 0; i < this.size * this.size; i++){
             this.cubesArray[i] = 0;    
