@@ -137,6 +137,7 @@ class CubesView{
         document.getElementById('grid').remove();
     };
 
+
     addCubesToGrid(cubesArray, grid, size){
         var i = 0;
         for(var y = 0; y < size; y++){
@@ -155,7 +156,7 @@ class CubesView{
             };
         };
         //emulateUserClicks(size);
-    };
+    };  
          
 //function to remove all cubes from grid
 /*removeCubesFromGrid(size){
