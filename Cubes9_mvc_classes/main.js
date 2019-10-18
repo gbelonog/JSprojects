@@ -12,7 +12,7 @@ class CubesController{
     start(){
         var size = prompt('Please set size of grid');
         this.cubesModel.size = size;
-        this.cubesModel.createGrid();
+        //this.cubesModel.createGrid();
         this.cubesModel.createGrid1();
         this.onClickCube(this.cubesModel);
     };
@@ -33,38 +33,40 @@ class CubesModel{
     //constructor
     constructor(cubesView){
         this.cubesArray = [];
-        this.cubesArray1 = [[0,0],[1,1],[2,2],[3,3]];
+        this.cubesArray1;//= [];//[[0,0],[1,1],[2,2],[3,3]];
         this.size = 0;
         this.cubesView = cubesView;
         this.flag = false;
     };
 
     createGrid1(){
-       
-       // console.log(this.cubesArray1[1,1]);
+
+        var array = [];
         for(var i = 0; i < this.size * this.size; i++){
-            for (var y = 0; y < this.size; y++){
-               // for (var x = 0; x < this.size; x++){
-               // this.cubesArray1[i][y][x] = 0;
-               
-               this.cubesArray1[i][y] = 0; 
-                console.log(this.cubesArray1);
-                
-                // };
-            };  
-        };
-        //var i = 1;
-        //console.log(this.cubesArray1);
-        //this.cubesArray1[0][i] = 4;
-        console.log(this.cubesArray1[0][1]);
+               var cube = new Object;
+               cube.id = 0;
+               cube.x = 0;
+               cube.y = 0;
+               array.push(cube);     
+            };
+            for (var x = this.size; x < this.size * this.size; x++){
+               array[x].x = 1; 
+            };
+            for (var y = 0; y < this.size * this.size; y++){
+                array[y].y = Number(y) % 2; 
+             };
+        this.cubesArray = array;
+        console.log(this.cubesArray);
+        this.emulateUserClicks();
+        this.drow();
     };
-    createGrid(){
+   /* createGrid(){
         for(var i = 0; i < this.size * this.size; i++){
             this.cubesArray[i] = 0;    
         };
         this.emulateUserClicks();
         this.drow();
-    };
+    };*/
     
     drow(){
         if (this.flag == true){this.cubesView.removeGrid()};
@@ -77,8 +79,8 @@ class CubesModel{
         var secondRandomId = Math.floor(firstRandomId / 2);
         console.log(firstRandomId);
         console.log(secondRandomId);
-        this.cubesArray[firstRandomId] = 1;
-        this.cubesArray[secondRandomId] = 1;
+        this.cubesArray[firstRandomId].id = 1;
+        this.cubesArray[secondRandomId].id = 1;
     }; 
     
     //function to remove all cubes from grid
