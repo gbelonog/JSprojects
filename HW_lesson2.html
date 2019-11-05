@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HW_lesson2_metro</title>
+</head>
+<body>
+    <script>
+        function start(){
+            let weight = askUser();
+           
+           // weight = checkInputCorrectness(weight);
+           // weight = convert(weight);
+            //console.log(weight);
+            
+            //console.log(countCost(weight));
+
+        };
+        function askUser(){
+            let weight = prompt('Enter weight of luggage in lb');
+           // let flag = false;
+            if (checkInputCorrectness(weight)){return weight;}
+            else askUser();
+        };
+        function convert(weightInLB){
+            return Math.ceil(weightInLB / 2.20462);
+        };
+        function countCost(weightInKG){
+            let cost = 0;
+            
+            if(weightInKG > 5){
+                if (weightInKG > 10){
+                    cost = weightInKG * 10;
+                }
+                cost = weightInKG * 5;
+            }
+            else cost = weightInKG * 3;
+            
+            return cost;
+        };
+        function checkInputCorrectness(value){
+            if(typeof(value) != 'number'){
+                alert("Type weight in digits please.");
+                return false;
+                }
+                else if (value < 0){
+                    alert("Weight should be more than 0.");
+                    return false;
+                }else if (value > 15){
+                    alert("Weight should be more than 0.");
+                    return false;
+                }
+            
+        };
+        start();
+    </script>
+</body>
+</html>
