@@ -12,8 +12,15 @@ class CubesController{
     start(){
         var size = prompt('Please set size of grid');
         this.cubesModel.size = size;
-        this.cubesModel.createGrid();
+        //this.cubesModel.createGrid();
         this.cubesModel.createGrid1();
+        var tmp = this.cubesModel;
+/*        this.cubesView.grid.addEventListener('click',function(event){
+            var clicked = event.target;// var for clicked item
+            //cubesModel.cubesArray[clicked.id] = 1;
+            tmp.changeColorOfClickedCube(clicked.id);
+            tmp.drow();
+       }); */ 
         this.onClickCube(this.cubesModel);
     };
     
@@ -33,38 +40,44 @@ class CubesModel{
     //constructor
     constructor(cubesView){
         this.cubesArray = [];
-        this.cubesArray1 = [[0,0],[1,1],[2,2],[3,3]];
+        //this.cubesArray1;//= [];//[[0,0],[1,1],[2,2],[3,3]];
         this.size = 0;
         this.cubesView = cubesView;
         this.flag = false;
     };
 
     createGrid1(){
-       
-       // console.log(this.cubesArray1[1,1]);
+
+        var array = [];
         for(var i = 0; i < this.size * this.size; i++){
-            for (var y = 0; y < this.size; y++){
-               // for (var x = 0; x < this.size; x++){
-               // this.cubesArray1[i][y][x] = 0;
-               
-               this.cubesArray1[i][y] = 0; 
-                console.log(this.cubesArray1);
-                
-                // };
-            };  
-        };
-        //var i = 1;
-        //console.log(this.cubesArray1);
-        //this.cubesArray1[0][i] = 4;
-        console.log(this.cubesArray1[0][1]);
+               var cube = new Object;
+               cube.id = 0;
+               cube.state = 0;
+               cube.x = 0;
+               cube.y = 0;
+               array.push(cube);     
+            };
+            for (var id = 0; id < this.size * this.size; id++){
+                array[id].id = id; 
+            };
+            for (var x = this.size; x < this.size * this.size; x++){
+               array[x].x = 1; 
+            };
+            for (var y = 0; y < this.size * this.size; y++){
+                array[y].y = Number(y) % 2; 
+             };
+        this.cubesArray = array;
+        console.log(this.cubesArray);
+        this.emulateUserClicks();
+        this.drow();
     };
-    createGrid(){
+   /* createGrid(){
         for(var i = 0; i < this.size * this.size; i++){
             this.cubesArray[i] = 0;    
         };
         this.emulateUserClicks();
         this.drow();
-    };
+    };*/
     
     drow(){
         if (this.flag == true){this.cubesView.removeGrid()};
@@ -77,8 +90,8 @@ class CubesModel{
         var secondRandomId = Math.floor(firstRandomId / 2);
         console.log(firstRandomId);
         console.log(secondRandomId);
-        this.cubesArray[firstRandomId] = 1;
-        this.cubesArray[secondRandomId] = 1;
+        this.cubesArray[firstRandomId].state = 1;
+        this.cubesArray[secondRandomId].state = 1;
     }; 
     
     //function to remove all cubes from grid
@@ -88,17 +101,28 @@ class CubesModel{
     
     //change color of clicked cube
     changeColorOfClickedCube(id){
-        if(this.cubesArray[id] == 1){this.cubesArray[id] = 0;}
-        else {this.cubesArray[id] = 1;}
-        this.selectNeighbour(id, this.cubesView);
+        console.log(id);
+        if(this.cubesArray[id].state == 1){this.cubesArray[cube.id].state = 0;}
+        else {this.cubesArray[cube.id].state = 1;}
+        this.drow();
+        this.selectNeighbour(this.cubesArray[cube].id, this.cubesArray, this.cubesView);
     };
     //function for selecting neighbours of clicked element
-    selectNeighbour(id, cubesView){
-        var size = Number(this.size);
-        var x = document.getElementById(id).getAttribute('x');
-        var y = document.getElementById(id).getAttribute('y');
+    selectNeighbour(id, array, cubesView){
+        
+        var size = Number(array.length);
+        console.log(array[id]);
+
+        var x = array[cube].x;//document.getElementById(id).getAttribute('x');
+        var y = array[cube].y;//document.getElementById(id).getAttribute('y');
         if(x < size - 1){
-            cubesView.changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + y + '"'+']'));
+             array1.find(function(element) {
+                if (element.x == 0){
+                    console.log("hello");
+                };
+        });
+
+            //cubesView.changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + y + '"'+']'));
         };
         if(x > 0){
             cubesView.changeColor(document.querySelector('[x='+ '"' + (Number(x)-1) + '"'+'][y='+ '"' + y + '"'+']'));
@@ -164,7 +188,7 @@ class CubesView{
         for(var y = 0; y < size; y++){
             for(var x = 0; x < size; x++){
                 var cube = document.createElement('cube');//create div element and assign it to var cube
-                if (cubesArray[i] == 0){
+                if (cubesArray[i].id == 0){
                     cube.classList.add('firstState');//apply a green color to cube
                 }
                 else{
