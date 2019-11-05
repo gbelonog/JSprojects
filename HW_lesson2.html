@@ -9,51 +9,31 @@
 <body>
     <script>
         function start(){
-            let weight = askUser();
-           
-           // weight = checkInputCorrectness(weight);
-           // weight = convert(weight);
-            //console.log(weight);
-            
-            //console.log(countCost(weight));
-
-        };
-        function askUser(){
             let weight = prompt('Enter weight of luggage in lb');
-           // let flag = false;
-            if (checkInputCorrectness(weight)){return weight;}
-            else askUser();
-        };
-        function convert(weightInLB){
-            return Math.ceil(weightInLB / 2.20462);
+            var n = parseInt(weight); 
+            if (isNaN(n)) {
+                alert("Type weight in digits please.");
+                weight = prompt('Enter weight of luggage in lb');
+                };
+            weight = Math.ceil(weight / 2.20462);
+            
+            if (Number(weight) <=  0){
+                    alert("Weight should be more than 0 kg.");
+                } else if (Number(weight) >= 15){
+                        alert("Weight should be less than 15 kg.");
+                        }else alert(countCost(weight));
+
         };
         function countCost(weightInKG){
             let cost = 0;
             
             if(weightInKG > 5){
-                if (weightInKG > 10){
-                    cost = weightInKG * 10;
-                }
-                cost = weightInKG * 5;
-            }
-            else cost = weightInKG * 3;
-            
+                if (weightInKG > 10){cost = weightInKG * 10;}
+                else cost = weightInKG * 5;
+            }else cost = weightInKG * 3;
             return cost;
         };
-        function checkInputCorrectness(value){
-            if(typeof(value) != 'number'){
-                alert("Type weight in digits please.");
-                return false;
-                }
-                else if (value < 0){
-                    alert("Weight should be more than 0.");
-                    return false;
-                }else if (value > 15){
-                    alert("Weight should be more than 0.");
-                    return false;
-                }
-            
-        };
+
         start();
     </script>
 </body>
