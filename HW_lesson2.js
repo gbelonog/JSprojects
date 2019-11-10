@@ -17,7 +17,6 @@ function start(){
 };
 function countCost(weightInKG){
     let cost = 0;
-    
     if(weightInKG > 5){
         if (weightInKG > 10){cost = weightInKG * 10;}
         else cost = weightInKG * 5;
