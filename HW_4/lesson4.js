@@ -7,13 +7,26 @@ function square(){
 };
 function simple(){
     let input = prompt("?");
+    let simpleFlag = false;
     if(input > 0){
-        for (let i = 0; i < 10; i++){
-            if 
+        for (let i = 2; i < input; i++){
+            if (input % i > 0){
+                simpleFlag = false;
+                
+            }else {
+                simpleFlag = true;
+                break;
+            }
         }
     }
-        console.log(i);
-    }
+    else  simpleFlag = false;
+
+    if (simpleFlag){
+        console.log("not simple");
+    }else console.log("simple");
+    //console.log("negative");
+   
 };
 
-square();
+//square();
+simple();
