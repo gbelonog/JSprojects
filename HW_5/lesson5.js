@@ -34,7 +34,29 @@ function countPens(listOfProducts){
       return results.length;
 };
 
-let listOfProducts = products();
+function removePen(listOfProducts){
+    let results =  listOfProducts.filter(item => item.name !== 'pen');
+    return results;
+};
+
+//let listOfProducts = products();
+let listOfProducts = [  
+    { 
+    name: 'pen',
+    price: 2,
+    category: 'pens'
+  },
+  { 
+    name: 'pen1',
+    price: 7,
+    category: 'pens'
+  },
+  { 
+    name: 'paper',
+    price: 7,
+    category: 'paper'
+  }
+];
 console.log(listOfProducts);
 
 let productsMore5 = filterProductsByPrice(listOfProducts);
@@ -45,3 +67,7 @@ console.log(productsCategoryPens);
 
 let numberOfItemsInPens = countPens(listOfProducts);
 console.log(numberOfItemsInPens + ' pens.');
+
+let withoutPen = removePen(listOfProducts);
+console.log(withoutPen);
+
