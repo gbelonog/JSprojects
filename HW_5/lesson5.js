@@ -34,9 +34,13 @@ function countPens(listOfProducts){
       return results.length;
 };
 
-function removePen(listOfProducts){
-    let results =  listOfProducts.filter(item => item.name !== 'pen');
-    return results;
+function removePen(){
+    listOfProducts = listOfProducts.filter(item => item.name !== 'pen');
+};
+
+function sortUp(listOfProducts){
+    let result = listOfProducts.sort((a,b) => (a.price - b.price))
+    return result;
 };
 
 //let listOfProducts = products();
@@ -53,21 +57,25 @@ let listOfProducts = [
   },
   { 
     name: 'paper',
-    price: 7,
+    price: 1,
     category: 'paper'
   }
 ];
 console.log(listOfProducts);
 
-let productsMore5 = filterProductsByPrice(listOfProducts);
-console.log(productsMore5);
+// let productsMore5 = filterProductsByPrice(listOfProducts);
+// console.log(productsMore5);
 
-let productsCategoryPens = filterProductsByCategory(listOfProducts);
-console.log(productsCategoryPens);
+// let productsCategoryPens = filterProductsByCategory(listOfProducts);
+// console.log(productsCategoryPens);
 
-let numberOfItemsInPens = countPens(listOfProducts);
-console.log(numberOfItemsInPens + ' pens.');
+// let numberOfItemsInPens = countPens(listOfProducts);
+// console.log(numberOfItemsInPens + ' pens.');
 
-let withoutPen = removePen(listOfProducts);
-console.log(withoutPen);
+// removePen();
+// console.log(listOfProducts);
+
+let sortedArrUp = sortUp(listOfProducts);
+console.log(sortedArrUp);
+console.log(listOfProducts);
 
