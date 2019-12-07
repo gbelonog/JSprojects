@@ -50,7 +50,7 @@ function sortDown(listOfProducts){
 function askAboutSortAndFilter(listOfProducts){
     let sortType = prompt('to up enter 1, to down enter 0');
     let filterType = prompt('for filtering by price enter 1, for filtering by category enter 0');
-    if (filterType === 1){
+    if (filterType === '1'){
         let priceLimit = prompt('enter price limit');
         listOfProducts = filterProductsByPrice(listOfProducts,priceLimit);
         console.log(listOfProducts);
@@ -60,14 +60,25 @@ function askAboutSortAndFilter(listOfProducts){
         console.log(listOfProducts);
     };
 
-    if(sortType === 1){
+    if(sortType === '1'){
         sortUp(listOfProducts);
     }
     else{
         sortDown(listOfProducts);
     };
     console.log(listOfProducts);
+    return listOfProducts;
 };
+
+function getSumOfPrices(listOfProducts){
+    let filteredList = askAboutSortAndFilter(listOfProducts);
+    let sum = 0;
+    for(let i = 0; i < filteredList.length; i++){
+        sum += filteredList[i].price;
+    };
+    console.log(sum);
+};
+
 //let listOfProducts = products();
 let listOfProducts = [  
     { 
@@ -112,5 +123,7 @@ console.log(listOfProducts);
 // let sortedArrDown = sortDown(listOfProducts);
 // console.log(sortedArrDown);
 // console.log(listOfProducts);
-askAboutSortAndFilter(listOfProducts);
+//askAboutSortAndFilter(listOfProducts);
+
+getSumOfPrices(listOfProducts);
 
