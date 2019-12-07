@@ -13,19 +13,18 @@ function products (){
         productsArray.push(product);
         next = confirm('add product?')
     }while(next);
-    //console.log(productsArray);
     return productsArray;
 };
 
-function filterProductsByPrice(listOfProducts){
+function filterProductsByPrice(listOfProducts, priceLimit){
     let results = listOfProducts.filter(function(item) {
-        if(item.price > 5) return item; 
+        if(item.price > priceLimit) return item; 
       });
       return results;
 };
 
-function filterProductsByCategory(listOfProducts){
-    let results = listOfProducts.filter(item => item.category === 'pens');
+function filterProductsByCategory(listOfProducts, categoryName){
+    let results = listOfProducts.filter(item => item.category === categoryName);
       return results;
 };
 
@@ -43,11 +42,37 @@ function sortUp(listOfProducts){
     return result;
 };
 
+function sortDown(listOfProducts){
+    let result = listOfProducts.sort((a,b) => (b.price - a.price));
+    return result;
+};
+
+function askAboutSortAndFilter(listOfProducts){
+    let sortType = prompt('to up enter 1, to down enter 0');
+    let filterType = prompt('for filtering by price enter 1, for filtering by category enter 0');
+    if (filterType === 1){
+        let priceLimit = prompt('enter price limit');
+        listOfProducts = filterProductsByPrice(listOfProducts,priceLimit);
+        console.log(listOfProducts);
+    }else {
+        let categoryName = prompt('enter categoryName');
+        listOfProducts = filterProductsByCategory(listOfProducts,categoryName);
+        console.log(listOfProducts);
+    };
+
+    if(sortType === 1){
+        sortUp(listOfProducts);
+    }
+    else{
+        sortDown(listOfProducts);
+    };
+    console.log(listOfProducts);
+};
 //let listOfProducts = products();
 let listOfProducts = [  
     { 
     name: 'pen',
-    price: 2,
+    price: 8,
     category: 'pens'
   },
   { 
@@ -58,6 +83,11 @@ let listOfProducts = [
   { 
     name: 'paper',
     price: 1,
+    category: 'paper'
+  },
+  { 
+    name: 'book',
+    price: 21,
     category: 'paper'
   }
 ];
@@ -75,7 +105,12 @@ console.log(listOfProducts);
 // removePen();
 // console.log(listOfProducts);
 
-let sortedArrUp = sortUp(listOfProducts);
-console.log(sortedArrUp);
-console.log(listOfProducts);
+// let sortedArrUp = sortUp(listOfProducts);
+// console.log(sortedArrUp);
+// console.log(listOfProducts);
+
+// let sortedArrDown = sortDown(listOfProducts);
+// console.log(sortedArrDown);
+// console.log(listOfProducts);
+askAboutSortAndFilter(listOfProducts);
 
