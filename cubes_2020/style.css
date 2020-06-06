@@ -1,0 +1,38 @@
+body{
+    background-color: #3366CC; 
+   } 
+
+.grid {
+    --grid-width: 432px;
+    --grid-height: 432px;
+
+    display: flex;
+    flex-wrap: wrap;
+    height: var(--grid-height);
+    width: var(--grid-width);
+    margin: 0 auto;
+    background: rgb(167, 195, 238);    
+}
+
+/*.cube {
+    background: green;
+    height: 100px;
+    width: 100px;
+    margin: 4px 
+}*/
+
+.cubeFirstState {
+    background: rgb(58, 148, 58);
+    height: 100px;
+    width: 100px;
+    margin: 4px; 
+    transition-duration: 2s
+}
+
+.cubeSecondState {
+    background: rgb(241, 241, 122);
+    height: 100px;
+    width: 100px;
+    margin: 4px; 
+    transition-duration: 2s;
+}

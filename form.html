@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration form</title>
+</head>
+<body>
+    <form action="http://jkorpela.fi/cgi-bin/echo.cgi" method="POST">
+       <h1>Registration form</h1> 
+       
+       <div>Login: <input type="text" required maxlength="10"> </div><br>
+       <div>Password: <input type="password" required maxlength="10"> </div><br>
+       <div>Email: <input required maxlength="30"> </div><br>
+       <div>Phone number: <input maxlength="12"> </div><br>
+       <div>User name: <input maxlength="20"> </div><br>
+       <div>City: <input maxlength="30"> </div><br>
+       <div>Gender: 
+           <input type="radio" name="gender" value="Male" checked>Male 
+           <input type="radio" name="gender" value="Female">Female
+        </div><br>
+       <div>Date of birth: <input type="date" min="1900-01-01" max="2020-01-08"> </div><br>
+       <div>What do you want to buy? <input maxlength="1000"> </div><br>
+       <div>Photo: <input type="file"> </div><br>
+
+       <input type="Submit">
+    </form>
+       
+</body>
+</html>
