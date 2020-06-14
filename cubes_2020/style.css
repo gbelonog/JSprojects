@@ -26,7 +26,8 @@ body{
     height: 100px;
     width: 100px;
     margin: 4px; 
-    transition-duration: 2s
+    transition-duration: 2s;
+    position: relative;
 }
 
 .cubeSecondState {
