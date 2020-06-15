@@ -16,8 +16,8 @@ class Controller{
             
             //let n =this.mySquareGrid_View.eventEmitter.emit('clickedCube')
 
-            this.mySquareGrid_View.on('clickCube',function(clicked){
-                console.log('from callback', clicked);
+            this.mySquareGrid_View.on('clickedCube',function(){
+                console.log('ok');
             });
             this.mySquareGrid_View.showGrid();
 
@@ -202,10 +202,10 @@ class EventEmitter{
     };
 
     on(eventName, eventTarget){
-        if (!this.eventList[eventName]){
-            this.eventList[eventName] = [];
+        if (!this.eventsList[eventName]){
+            this.eventsList[eventName] = [];
         }
-        this.eventList[eventName].push(eventTarget);
+        this.eventsList[eventName].push(eventTarget);
         console.log( 'on', this.eventsList);
     };
 
