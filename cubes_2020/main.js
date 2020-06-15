@@ -14,11 +14,17 @@ class Controller{
             this.myGrid_Model.createGridArray();
             this.mySquareGrid_View = new SquareGrid_View(this.myGrid_Model.getGridArray());
             this.mySquareGrid_View.showGrid();
+            let n =this.mySquareGrid_View.eventEmitter.emit('clickedCube')
+            if(this.mySquareGrid_View.eventEmitter.emit('clickedCube')){
+                console.log('ok');
+            };
+
 
             
+            
         }while(!(this.mySize_Model.getSizeChanged()));
-        do{
-            //console.log(this.mySquareGrid_View.getClickedCube());
+        //do{
+
             if(this.mySquareGrid_View.getClickedCube() != 0){
                 clickedCubeX = this.mySquareGrid_View.getClickedCube().x;
                 clickedCubeY = this.mySquareGrid_View.getClickedCube().y;
@@ -26,7 +32,7 @@ class Controller{
                 this.mySquareGrid_View.showGrid();
             }
             
-        }while(!(this.mySquareGrid_View.getCubeWasClickedFlag()));
+       // }while(!(this.mySquareGrid_View.getCubeWasClickedFlag()));
     };
 };
 
@@ -112,8 +118,9 @@ class PromptSize_View{
 class SquareGrid_View{
     constructor(gridArray){
         this.gridArray = gridArray;
-        this.cubeWasClickedFlag = false;
+        //this.cubeWasClickedFlag = false;
         this.clicked = 0;
+        this.eventEmitter = new EventEmitter();
 
     };
 
@@ -153,15 +160,23 @@ class SquareGrid_View{
              grid.appendChild(cube);//add cube to grid
          });
         
-         grid.addEventListener('click',function(event){
+         //console.log(this.eventEmitter);
+        grid.addEventListener('click',(event) => {
             this.clicked = event.target;// var for clicked item
-            this.cubeWasClickedFlag = true;
+            //this.cubeWasClickedFlag = true;
             console.log(this.clicked);
-            //changeColor(clicked);//change color of clicked element
-            //selectNaibor(clicked.id, size);//select elements to changed with clicked
+            console.log(this.eventEmitter);
+            this.eventEmitter.on('clickedCube', event.target);        
         });
     };
     
+    on(eventName, data){
+        this.eventEmitter.on(eventName, data);
+    };
+
+    off(){};
+
+
     getClickedCube(){
         return this.clicked;
     };
@@ -169,6 +184,28 @@ class SquareGrid_View{
 };
 
 class YouWin_View{};
+
+class EventEmitter{
+    constructor(){
+        this.eventsList = [];
+
+    }
+
+    emit(eventName){
+        if(this.eventsList.forEach(element => (element === eventName))){
+            
+            console.log('true');
+            return true;
+        };
+    };
+
+    on(eventName, data){
+        this.eventsList.push(eventName, data);
+        console.log(this.eventsList);
+    };
+
+    of(){};
+};
 
 let myController = new Controller();
 myController.start();
