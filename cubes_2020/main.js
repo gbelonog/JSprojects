@@ -13,11 +13,13 @@ class Controller{
             this.myGrid_Model = new Grid_Model(this.mySize_Model.getSize());
             this.myGrid_Model.createGridArray();
             this.mySquareGrid_View = new SquareGrid_View(this.myGrid_Model.getGridArray());
+            
+            //let n =this.mySquareGrid_View.eventEmitter.emit('clickedCube')
+
+            this.mySquareGrid_View.on('clickCube',function(clicked){
+                console.log('from callback', clicked);
+            });
             this.mySquareGrid_View.showGrid();
-            let n =this.mySquareGrid_View.eventEmitter.emit('clickedCube')
-            if(this.mySquareGrid_View.eventEmitter.emit('clickedCube')){
-                console.log('ok');
-            };
 
 
             
@@ -25,12 +27,12 @@ class Controller{
         }while(!(this.mySize_Model.getSizeChanged()));
         //do{
 
-            if(this.mySquareGrid_View.getClickedCube() != 0){
-                clickedCubeX = this.mySquareGrid_View.getClickedCube().x;
-                clickedCubeY = this.mySquareGrid_View.getClickedCube().y;
-                this.mySquareGrid_View.changeClickedCube(clickedCubeX,clickedCubeY);
-                this.mySquareGrid_View.showGrid();
-            }
+            // if(this.mySquareGrid_View.getClickedCube() != 0){
+            //     clickedCubeX = this.mySquareGrid_View.getClickedCube().x;
+            //     clickedCubeY = this.mySquareGrid_View.getClickedCube().y;
+            //     this.mySquareGrid_View.changeClickedCube(clickedCubeX,clickedCubeY);
+            //     this.mySquareGrid_View.showGrid();
+            // }
             
        // }while(!(this.mySquareGrid_View.getCubeWasClickedFlag()));
     };
@@ -119,7 +121,7 @@ class SquareGrid_View{
     constructor(gridArray){
         this.gridArray = gridArray;
         //this.cubeWasClickedFlag = false;
-        this.clicked = 0;
+        //this.clicked = 0;
         this.eventEmitter = new EventEmitter();
 
     };
@@ -132,7 +134,7 @@ class SquareGrid_View{
     showGrid(){
         let game = document.getElementById('board');
         let grid = document.createElement('div');
-        this.cubeWasClickedFlag = false;
+        //this.cubeWasClickedFlag = false;
 
         grid.setAttribute('class','grid');
         grid.setAttribute('id','grid');
@@ -162,11 +164,11 @@ class SquareGrid_View{
         
          //console.log(this.eventEmitter);
         grid.addEventListener('click',(event) => {
-            this.clicked = event.target;// var for clicked item
+            //this.clicked = event.target;// var for clicked item
             //this.cubeWasClickedFlag = true;
-            console.log(this.clicked);
-            console.log(this.eventEmitter);
-            this.eventEmitter.on('clickedCube', event.target);        
+            //console.log(this.clicked);
+            //console.log(this.eventEmitter);
+            this.eventEmitter.emit('clickedCube', event.target);        
         });
     };
     
@@ -177,9 +179,9 @@ class SquareGrid_View{
     off(){};
 
 
-    getClickedCube(){
-        return this.clicked;
-    };
+ //   getClickedCube(){
+ //       return this.clicked;
+ //   };
 
 };
 
@@ -187,24 +189,28 @@ class YouWin_View{};
 
 class EventEmitter{
     constructor(){
-        this.eventsList = [];
-
-    }
-
-    emit(eventName){
-        if(this.eventsList.forEach(element => (element === eventName))){
-            
-            console.log('true');
-            return true;
-        };
+        this.eventsList = {};
     };
 
-    on(eventName, data){
-        this.eventsList.push(eventName, data);
-        console.log(this.eventsList);
+    emit(eventName, eventTarget){
+        console.log('eventList', this.eventsList);
+        //if(this.eventsList.forEach(element => (element === eventName))){
+            if (this.eventsList[eventName]){
+                this.eventsList[eventName].forEach(element => element(eventTarget));
+            }
+       // };
     };
 
-    of(){};
+    on(eventName, eventTarget){
+        if (!this.eventList[eventName]){
+            this.eventList[eventName] = [];
+        }
+        this.eventList[eventName].push(eventTarget);
+        console.log( 'on', this.eventsList);
+    };
+
+
+    off(){};
 };
 
 let myController = new Controller();
