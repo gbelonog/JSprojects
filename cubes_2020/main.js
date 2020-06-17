@@ -13,17 +13,11 @@ class Controller{
             this.myGrid_Model = new Grid_Model(this.mySize_Model.getSize());
             this.myGrid_Model.createGridArray();
             this.mySquareGrid_View = new SquareGrid_View(this.myGrid_Model.getGridArray());
-            
-            //let n =this.mySquareGrid_View.eventEmitter.emit('clickedCube')
-
-            this.mySquareGrid_View.on('clickedCube',function(){
-                console.log('ok');
+            this.mySquareGrid_View.on('clickedCube',(n)=>{
+                console.log(n.id);
+                //this.mySquareGrid_View.changeClickedCube(n.id);
             });
             this.mySquareGrid_View.showGrid();
-
-
-            
-            
         }while(!(this.mySize_Model.getSizeChanged()));
         //do{
 
@@ -90,9 +84,10 @@ class Grid_Model{
         });
         console.log(this.gridArray);
     };
-    changeClickedCube(x, y){
+    changeClickedCube(id){
         this.gridArray.forEach(element => {
-            if (element.x == x && element.y ==y){
+            //if (element.x == x && element.y ==y){
+            if (element.id == id){
                 if (element.state == 1){
                     element.state = 0;
                 }else {
@@ -109,18 +104,17 @@ class Grid_Model{
 class PromptSize_View{
     constructor(size_Model){
         this.size_Model = size_Model;
-        };
-    
+    };
+
     askSize(){
-            this.size_Model.setSize(prompt('Please set size of grid'));
-        };    
+        this.size_Model.setSize(prompt('Please set size of grid'));
+    };    
 };
 
 //view for drowing grid with cubes
 class SquareGrid_View{
     constructor(gridArray){
         this.gridArray = gridArray;
-        //this.cubeWasClickedFlag = false;
         //this.clicked = 0;
         this.eventEmitter = new EventEmitter();
 
@@ -134,7 +128,6 @@ class SquareGrid_View{
     showGrid(){
         let game = document.getElementById('board');
         let grid = document.createElement('div');
-        //this.cubeWasClickedFlag = false;
 
         grid.setAttribute('class','grid');
         grid.setAttribute('id','grid');
@@ -162,13 +155,9 @@ class SquareGrid_View{
              grid.appendChild(cube);//add cube to grid
          });
         
-         //console.log(this.eventEmitter);
         grid.addEventListener('click',(event) => {
-            //this.clicked = event.target;// var for clicked item
-            //this.cubeWasClickedFlag = true;
-            //console.log(this.clicked);
-            //console.log(this.eventEmitter);
-            this.eventEmitter.emit('clickedCube', event.target);        
+            this.eventEmitter.emit('clickedCube', event.target); 
+            //console.log('listener_eventTarget', event.target.id);       
         });
     };
     
@@ -177,12 +166,6 @@ class SquareGrid_View{
     };
 
     off(){};
-
-
- //   getClickedCube(){
- //       return this.clicked;
- //   };
-
 };
 
 class YouWin_View{};
@@ -193,12 +176,15 @@ class EventEmitter{
     };
 
     emit(eventName, eventTarget){
-        console.log('eventList', this.eventsList);
-        //if(this.eventsList.forEach(element => (element === eventName))){
+        
+           // console.log('emit_eventTarget',eventTarget.x);
+
             if (this.eventsList[eventName]){
+                //this.eventsList[eventName].forEach(element => element(eventTarget));
                 this.eventsList[eventName].forEach(element => element(eventTarget));
             }
-       // };
+
+            //console.log('eventList', this.eventsList);
     };
 
     on(eventName, eventTarget){
