@@ -15,7 +15,9 @@ class Controller{
             this.mySquareGrid_View = new SquareGrid_View(this.myGrid_Model.getGridArray());
             this.mySquareGrid_View.on('clickedCube',(n)=>{
                 console.log(n.id);
-                //this.mySquareGrid_View.changeClickedCube(n.id);
+                this.myGrid_Model.changeClickedCube(n.id);
+                this.mySquareGrid_View.removeCubes();
+                this.mySquareGrid_View.showGrid();
             });
             this.mySquareGrid_View.showGrid();
         }while(!(this.mySize_Model.getSizeChanged()));
@@ -63,9 +65,11 @@ class Grid_Model{
     };
 
     createGridArray(){
+        let counter = 0;
         for(let y = 0; y < this.size; y++){
             for(let x = 0; x < this.size; x++){
-                this.gridArray.push({x:x, y:y, state: 0})
+                this.gridArray.push({id:counter, x:x, y:y, state: 0})
+                counter++;
             }
         }
         this.fillGridArray();
@@ -85,8 +89,11 @@ class Grid_Model{
         console.log(this.gridArray);
     };
     changeClickedCube(id){
+        //console.log('id', id);
+        //console.log(' this.gridArray[id].id', this.gridArray[id].id);
         this.gridArray.forEach(element => {
             //if (element.x == x && element.y ==y){
+                //console.log("element",element);
             if (element.id == id){
                 if (element.state == 1){
                     element.state = 0;
@@ -95,7 +102,7 @@ class Grid_Model{
                 }
             }  
         });
-        console.log(this.gridArray);
+        //console.log('changeClickedCube', this.gridArray);
     };
         
 };
@@ -117,6 +124,7 @@ class SquareGrid_View{
         this.gridArray = gridArray;
         //this.clicked = 0;
         this.eventEmitter = new EventEmitter();
+        this.game;
 
     };
 
@@ -124,15 +132,14 @@ class SquareGrid_View{
         return this.cubeWasClickedFlag;
     };
 
-
     showGrid(){
-        let game = document.getElementById('board');
+        this.game = document.getElementById('board');
         let grid = document.createElement('div');
 
         grid.setAttribute('class','grid');
         grid.setAttribute('id','grid');
 
-        game.appendChild(grid);
+        this.game.appendChild(grid);
 
         let size = this.gridArray.length / 2;
         let gridSize = size * 100 + size * 8;
@@ -166,6 +173,10 @@ class SquareGrid_View{
     };
 
     off(){};
+
+    removeCubes(){
+        document.getElementById('grid').remove();//removing grid
+    };
 };
 
 class YouWin_View{};
