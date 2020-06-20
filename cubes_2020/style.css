@@ -11,7 +11,10 @@ body{
     height: var(--grid-height);
     width: var(--grid-width);
     margin: 0 auto;
-    background: rgb(167, 195, 238);    
+    background-color: rgb(167, 195, 238); 
+    transition-property: background-color;
+    transition-duration: 5s; 
+      
 }
 
 /*.cube {
@@ -26,14 +29,14 @@ body{
     height: 100px;
     width: 100px;
     margin: 4px; 
-    transition-duration: 2s;
-    position: relative;
+    transition-duration: 5s;
 }
 
 .cubeSecondState {
-    background: rgb(241, 241, 122);
+    background-color: rgb(241, 241, 122);
     height: 100px;
     width: 100px;
     margin: 4px; 
-    transition-duration: 2s;
+    transition-property: background-color;
+    transition-duration: 5s;
 }

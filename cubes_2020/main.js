@@ -15,7 +15,8 @@ class Controller{
             this.mySquareGrid_View = new SquareGrid_View(this.myGrid_Model.getGridArray());
             this.mySquareGrid_View.on('clickedCube',(n)=>{
                 console.log(n.id);
-                this.myGrid_Model.changeClickedCube(n.id);
+                this.myGrid_Model.changeCube(n.id);
+                this.myGrid_Model.changeNeighbours(n.id);
                 this.mySquareGrid_View.removeCubes();
                 this.mySquareGrid_View.showGrid();
             });
@@ -54,58 +55,6 @@ class Size_Model{
     };
 };
 
-//model for drowing grid with cubes
-class Grid_Model{
-    constructor(size){
-        this.size = size;
-        this.gridArray = [];
-    };
-    getGridArray(){
-        return this.gridArray;
-    };
-
-    createGridArray(){
-        let counter = 0;
-        for(let y = 0; y < this.size; y++){
-            for(let x = 0; x < this.size; x++){
-                this.gridArray.push({id:counter, x:x, y:y, state: 0})
-                counter++;
-            }
-        }
-        this.fillGridArray();
-    }
-    
-    fillGridArray(){
-        let random = 0;
-
-        this.gridArray.forEach(element => {
-            random = Math.random()+0.5;//get random digit
-            if (random > 1){
-                element.state = 1;
-            }else {
-                element.state = 0;
-            }  
-        });
-        console.log(this.gridArray);
-    };
-    changeClickedCube(id){
-        //console.log('id', id);
-        //console.log(' this.gridArray[id].id', this.gridArray[id].id);
-        this.gridArray.forEach(element => {
-            //if (element.x == x && element.y ==y){
-                //console.log("element",element);
-            if (element.id == id){
-                if (element.state == 1){
-                    element.state = 0;
-                }else {
-                    element.state = 1;
-                }
-            }  
-        });
-        //console.log('changeClickedCube', this.gridArray);
-    };
-        
-};
 
 //view for asking size
 class PromptSize_View{
@@ -118,97 +67,6 @@ class PromptSize_View{
     };    
 };
 
-//view for drowing grid with cubes
-class SquareGrid_View{
-    constructor(gridArray){
-        this.gridArray = gridArray;
-        //this.clicked = 0;
-        this.eventEmitter = new EventEmitter();
-        this.game;
-
-    };
-
-    getCubeWasClickedFlag(){
-        return this.cubeWasClickedFlag;
-    };
-
-    showGrid(){
-        this.game = document.getElementById('board');
-        let grid = document.createElement('div');
-
-        grid.setAttribute('class','grid');
-        grid.setAttribute('id','grid');
-
-        this.game.appendChild(grid);
-
-        let size = this.gridArray.length / 2;
-        let gridSize = size * 100 + size * 8;
-        document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
-        document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
-
-        let i = 0;
-
-        this.gridArray.forEach(element => {
-             let cube = document.createElement('cube');//create div element and assign it to var cube
-             cube.id = i;
-             i++;
-             if (element.state == 1){
-                 cube.classList.add('cubeSecondState');
-             }else {
-                 cube.classList.add('cubeFirstState');
-             }  
-             cube.setAttribute('x',element.x);//add x to cube
-             cube.setAttribute('y',element.y);//add y to cube
-             grid.appendChild(cube);//add cube to grid
-         });
-        
-        grid.addEventListener('click',(event) => {
-            this.eventEmitter.emit('clickedCube', event.target); 
-            //console.log('listener_eventTarget', event.target.id);       
-        });
-    };
-    
-    on(eventName, data){
-        this.eventEmitter.on(eventName, data);
-    };
-
-    off(){};
-
-    removeCubes(){
-        document.getElementById('grid').remove();//removing grid
-    };
-};
-
-class YouWin_View{};
-
-class EventEmitter{
-    constructor(){
-        this.eventsList = {};
-    };
-
-    emit(eventName, eventTarget){
-        
-           // console.log('emit_eventTarget',eventTarget.x);
-
-            if (this.eventsList[eventName]){
-                //this.eventsList[eventName].forEach(element => element(eventTarget));
-                this.eventsList[eventName].forEach(element => element(eventTarget));
-            }
-
-            //console.log('eventList', this.eventsList);
-    };
-
-    on(eventName, eventTarget){
-        if (!this.eventsList[eventName]){
-            this.eventsList[eventName] = [];
-        }
-        this.eventsList[eventName].push(eventTarget);
-        console.log( 'on', this.eventsList);
-    };
-
-
-    off(){};
-};
 
 let myController = new Controller();
 myController.start();
