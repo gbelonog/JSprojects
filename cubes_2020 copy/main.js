@@ -22,7 +22,6 @@ class Controller{
             });
             this.mySquareGrid_View.showGrid();
         }while(!(this.mySize_Model.getSizeChanged()));
-        
         //do{
 
             // if(this.mySquareGrid_View.getClickedCube() != 0){
