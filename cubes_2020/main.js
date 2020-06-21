@@ -6,8 +6,6 @@ class Controller{
     };
     start(){
         this.myPromptSize_View.askSize();
-        let clickedCubeX = 0;
-        let clickedCubeY = 0;
 
         do{
             this.myGrid_Model = new Grid_Model(this.mySize_Model.getSize());
@@ -18,7 +16,13 @@ class Controller{
                 this.myGrid_Model.changeCube(n.id);
                 this.myGrid_Model.changeNeighbours(n.id);
                 this.mySquareGrid_View.removeCubes();
-                this.mySquareGrid_View.showGrid();
+                if(this.myGrid_Model.victoryCheck()){
+                    console.log('victory');
+                }else{
+                    this.mySquareGrid_View.showGrid(); 
+                };
+                
+                
             });
             this.mySquareGrid_View.showGrid();
         }while(!(this.mySize_Model.getSizeChanged()));

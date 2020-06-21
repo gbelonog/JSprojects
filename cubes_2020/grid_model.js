@@ -12,7 +12,8 @@ class Grid_Model{
         let counter = 0;
         for(let y = 0; y < this.size; y++){
             for(let x = 0; x < this.size; x++){
-                this.gridArray.push({id:counter, x:x, y:y, state: 0})
+                //this.gridArray.push({id:counter, x:x, y:y, state: 0});
+                this.gridArray.push({id:counter, state: 0});
                 counter++;
             }
         }
@@ -66,6 +67,21 @@ class Grid_Model{
         //victoryCheck(size);
     };
     
-    
+    //function checks that all cubes are in the same state
+    victoryCheck(){
+        let counter = 0;
+        for(let i = 0; i < this.size * this.size; i++){
+            if(this.gridArray[i].state == 0){
+                counter++;
+            };
+        };
+        if (counter == this.size * this.size || counter == 0){
+            //removeCubesFromGrid(size);
+        //document.getElementById('grid').innerText = 'Victory';
+            //gameView('victory');
+            return true;
+    };
+    return false;
+};
         
 };
