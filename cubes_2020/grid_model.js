@@ -33,12 +33,9 @@ class Grid_Model{
         });
         console.log(this.gridArray);
     };
+
     changeCube(id){
-        //console.log('id', id);
-        //console.log(' this.gridArray[id].id', this.gridArray[id].id);
         this.gridArray.forEach(element => {
-            //if (element.x == x && element.y ==y){
-                //console.log("element",element);
             if (element.id == id){
                 if (element.state == 1){
                     element.state = 0;
@@ -47,9 +44,8 @@ class Grid_Model{
                 }
             }  
         });
-        //this.changeNeighbour(id);
-        //console.log('changeClickedCube', this.gridArray);
     };
+
     changeNeighbours(id){
         let size = Number(this.size);
         if(id % size > 0){
@@ -76,12 +72,9 @@ class Grid_Model{
             };
         };
         if (counter == this.size * this.size || counter == 0){
-            //removeCubesFromGrid(size);
-        //document.getElementById('grid').innerText = 'Victory';
-            //gameView('victory');
             return true;
-    };
-    return false;
+        };
+        return false;
 };
         
 };

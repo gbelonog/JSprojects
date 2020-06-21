@@ -2,7 +2,6 @@
 class SquareGrid_View{
     constructor(gridArray){
         this.gridArray = gridArray;
-        //this.clicked = 0;
         this.eventEmitter = new EventEmitter();
         this.game;
 
@@ -44,8 +43,7 @@ class SquareGrid_View{
          });
         
         grid.addEventListener('click',(event) => {
-            this.eventEmitter.emit('clickedCube', event.target); 
-            //console.log('listener_eventTarget', event.target.id);       
+            this.eventEmitter.emit('clickedCube', event.target);     
         });
     };
     
