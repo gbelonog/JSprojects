@@ -18,6 +18,8 @@ class Controller{
                 this.mySquareGrid_View.removeCubes();
                 if(this.myGrid_Model.victoryCheck()){
                     console.log('victory');
+                    this.myVictory = new Win_View();
+                    this.myVictory.showWinImage();
                 }else{
                     this.mySquareGrid_View.showGrid(); 
                 };
@@ -72,6 +74,22 @@ class PromptSize_View{
     };    
 };
 
+//class Victory_Model{};
+
+class Win_View{
+    showWinImage(){
+        let point = document.getElementById('board');
+        let image = document.createElement('img');
+        image.setAttribute('id', 'winImage');
+        //image.setAttribute('src','https://image.freepik.com/free-vector/you-win-sign-pop-art-style_175838-499.jpg');
+        image.setAttribute('src','you-win-sign-pop-art-style_175838-499.jpg');
+       
+        point.appendChild(image);
+        console.log(image);
+
+        
+    };
+};
 
 let myController = new Controller();
 myController.start();
