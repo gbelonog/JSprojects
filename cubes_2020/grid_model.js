@@ -9,29 +9,25 @@ class Grid_Model{
     };
 
     createGridArray(){
-        let counter = 0;
+        let counterForCreate = 0;
+        
         for(let y = 0; y < this.size; y++){
             for(let x = 0; x < this.size; x++){
-                //this.gridArray.push({id:counter, x:x, y:y, state: 0});
-                this.gridArray.push({id:counter, state: 0});
-                counter++;
+                    //this.gridArray.push({id:counter, x:x, y:y, state: 0});
+                this.gridArray.push({id:counterForCreate, state: 0});
+                counterForCreate++;
             }
         }
-        this.fillGridArray();
+        this.emulateClick();
+        this.emulateClick();
+        this.emulateClick();
     }
-    
-    fillGridArray(){
-        let random = 0;
 
-        this.gridArray.forEach(element => {
-            random = Math.random()+0.5;//get random digit
-            if (random > 1){
-                element.state = 1;
-            }else {
-                element.state = 0;
-            }  
-        });
-        console.log(this.gridArray);
+    emulateClick(){
+        let random = Math.floor(Math.random() * Math.floor(this.size * this.size));
+        console.log('random1', random);
+        this.changeCube(random);
+        this.changeNeighbours(random);
     };
 
     changeCube(id){
@@ -60,7 +56,6 @@ class Grid_Model{
         if(id > size - 1) {
             this.changeCube(Number(id) - size);
         };
-        //victoryCheck(size);
     };
     
     //function checks that all cubes are in the same state
@@ -76,5 +71,6 @@ class Grid_Model{
         };
         return false;
 };
+
         
 };

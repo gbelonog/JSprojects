@@ -1,14 +1,9 @@
 //view for drowing grid with cubes
-class SquareGrid_View{
+class Grid_View{
     constructor(gridArray){
         this.gridArray = gridArray;
         this.eventEmitter = new EventEmitter();
         this.game;
-
-    };
-
-    getCubeWasClickedFlag(){
-        return this.cubeWasClickedFlag;
     };
 
     showGrid(){
@@ -20,7 +15,6 @@ class SquareGrid_View{
 
         this.game.appendChild(grid);
 
-        //let size = this.gridArray.length / 2;
         let size = Math.sqrt(this.gridArray.length);
         let gridSize = size * 100 + size * 8;
         document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
