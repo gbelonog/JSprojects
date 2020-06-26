@@ -58,3 +58,31 @@ body{
          transform: translateX(20px);
      }
  }
+
+ .form{
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    background-color: rgb(167, 195, 238); 
+    display: flex;
+    flex-wrap: wrap;
+ }
+
+ #input{
+    margin: auto;
+    height: 30px;
+ }
+
+ #text{
+     font-family: fantasy;
+     font-size: medium;
+     margin: auto;
+ }
+
+ #button{
+    margin: auto;
+    height: 30px;
+    width: 160px;
+    background-color: green;
+    font-family: fantasy;
+}
