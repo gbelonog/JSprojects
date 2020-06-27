@@ -11,28 +11,78 @@ body{
     height: var(--grid-height);
     width: var(--grid-width);
     margin: 0 auto;
-    background: rgb(167, 195, 238);    
+    background-color: rgb(167, 195, 238);  
 }
 
-/*.cube {
-    background: green;
-    height: 100px;
-    width: 100px;
-    margin: 4px 
-}*/
+
 
 .cubeFirstState {
     background: rgb(58, 148, 58);
     height: 100px;
     width: 100px;
     margin: 4px; 
-    transition-duration: 2s
+    transition-duration: 20s;
 }
 
 .cubeSecondState {
-    background: rgb(241, 241, 122);
+    background-color: rgb(241, 241, 122);
     height: 100px;
     width: 100px;
     margin: 4px; 
-    transition-duration: 2s;
+    transition-property: background-color;
+    transition-duration: 20s;
+}
+
+#winImage{
+    --grid-width: 432px;
+    --grid-height: 432px;
+
+    display: flex;
+    flex-wrap: wrap;
+    height: var(--grid-height);
+    width: var(--grid-width);
+    margin: 0 auto;
+    background-color: rgb(167, 195, 238); 
+
+    animation: fly 2s 5;
+}
+
+ @keyframes fly {
+     0%{
+         transform: translateX(20px);
+     }
+     50%{
+         transform: translateX(60px);
+     }
+     100%{
+         transform: translateX(20px);
+     }
+ }
+
+ .form{
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    background-color: rgb(167, 195, 238); 
+    display: flex;
+    flex-wrap: wrap;
+ }
+
+ #input{
+    margin: auto;
+    height: 30px;
+ }
+
+ #text{
+     font-family: fantasy;
+     font-size: medium;
+     margin: auto;
+ }
+
+ #button{
+    margin: auto;
+    height: 30px;
+    width: 160px;
+    background-color: green;
+    font-family: fantasy;
 }
