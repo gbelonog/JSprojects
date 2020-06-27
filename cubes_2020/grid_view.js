@@ -1,15 +1,9 @@
 //view for drowing grid with cubes
-class SquareGrid_View{
+class Grid_View{
     constructor(gridArray){
         this.gridArray = gridArray;
-        //this.clicked = 0;
         this.eventEmitter = new EventEmitter();
         this.game;
-
-    };
-
-    getCubeWasClickedFlag(){
-        return this.cubeWasClickedFlag;
     };
 
     showGrid(){
@@ -21,7 +15,6 @@ class SquareGrid_View{
 
         this.game.appendChild(grid);
 
-        //let size = this.gridArray.length / 2;
         let size = Math.sqrt(this.gridArray.length);
         let gridSize = size * 100 + size * 8;
         document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
@@ -38,14 +31,13 @@ class SquareGrid_View{
              }else {
                  cube.classList.add('cubeFirstState');
              }  
-             cube.setAttribute('x',element.x);//add x to cube
-             cube.setAttribute('y',element.y);//add y to cube
+             //cube.setAttribute('x',element.x);//add x to cube
+             //cube.setAttribute('y',element.y);//add y to cube
              grid.appendChild(cube);//add cube to grid
          });
         
         grid.addEventListener('click',(event) => {
-            this.eventEmitter.emit('clickedCube', event.target); 
-            //console.log('listener_eventTarget', event.target.id);       
+            this.eventEmitter.emit('clickedCube', event.target);     
         });
     };
     
