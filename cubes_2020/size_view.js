@@ -31,16 +31,27 @@ class Size_View{
         button.setAttribute('value',"Start game");
         form.appendChild(button);
 
-        this.data = input.value;
-        console.log( this.data);
-        button.addEventListener('click', (data) => {
-            this.eventEmitter.emit('getSize', data); 
-            console.log('get size', data);    
+        this.size_Model.setSize(Number(document.getElementById('input').value));
+
+        input.addEventListener('input', (event) => {
+            //console.log('event', event);
+            this.eventEmitter.emit('inputSize',event.target.value);    
+        });
+
+        button.addEventListener('click', () => {
+            this.eventEmitter.emit('getSize'); 
+            //console.log('size_not_number',document.getElementById('input').value);
+            
+            //console.log('get size');    
         });
     };   
     
     on(eventName, data){
         this.eventEmitter.on(eventName, data);
+    };
+
+    removeForm(){
+        document.getElementById('form').remove();//removing form
     };
 
 };
