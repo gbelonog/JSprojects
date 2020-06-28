@@ -28,7 +28,6 @@ class Grid_Model{
         console.log('random1', random);
         this.changeCube(random);
         this.changeNeighbours(random);
-        return random;
     };
 
     changeCube(id){
