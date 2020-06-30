@@ -11,10 +11,8 @@ class Controller{
 
         this.mySize_View.on('getSize',()=>{
             this.mySize_View.removeForm();
-            if(this.mySize_Model.getSize() === 0 ||
-                this.mySize_Model.getSize() < 2 ||
-                this.mySize_Model.getSize() > 5){
-                    this.mySize_View.askSize();
+            if(this.mySize_Model.getSize() === 0 || this.mySize_Model.getSize() < 2 || this.mySize_Model.getSize() > 5){
+                this.mySize_View.askSize();
             } else {
 
                 this.myGrid_Model = new Grid_Model(this.mySize_Model.getSize());

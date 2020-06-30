@@ -23,14 +23,8 @@ class Size_View{
 
         let input = document.createElement('input');
         input.setAttribute('id','input');
-        //input.setAttribute('type', "number");
         input.setAttribute('placeholder','From 2 to 5 only');
-        input.setAttribute('autofocus', 'true');
-        input.setAttribute('maxlength',1);
-        //input.setAttribute('min', '-9999');
-        //input.setAttribute('max', '99999');
         form.appendChild(input);
-
 
         let button = document.createElement('input');
         button.setAttribute('id','button');
@@ -47,10 +41,6 @@ class Size_View{
         button.addEventListener('click', () => {
             this.eventEmitter.emit('getSize');   
         });
-
-        document.getElementById('input').onkeydown = function (e) {
-            return !(/^[0А-Яа-яA-Za-z6-9\%\/\\\&\?\,\'\;\:\!\-\+\!\@\#\$\^\*\)\(\{\}\[\]\~\№\"\_ ]$/.test(e.key));
-        };
     };   
     
     on(eventName, data){
