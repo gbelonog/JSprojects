@@ -31,8 +31,6 @@ class Grid_View{
              }else {
                  cube.classList.add('cubeFirstState');
              }  
-             //cube.setAttribute('x',element.x);//add x to cube
-             //cube.setAttribute('y',element.y);//add y to cube
              grid.appendChild(cube);//add cube to grid
          });
         
