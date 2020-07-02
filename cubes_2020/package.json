@@ -1,0 +1,28 @@
+{
+  "name": "cubes",
+  "version": "1.0.0",
+  "description": "cubes",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Galya",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbelonog/JSprojects.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gbelonog/JSprojects/issues"
+  },
+  "homepage": "https://github.com/gbelonog/JSprojects#readme",
+  "devDependencies": {
+    "grunt-contrib-concat": "^1.0.1",
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-sourcemap": "^1.0.1"
+  },
+  "dependencies": {
+    "grunt": "^1.1.0"
+  }
+}

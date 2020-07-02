@@ -23,12 +23,9 @@ class Size_View{
 
         let input = document.createElement('input');
         input.setAttribute('id','input');
-        //input.setAttribute('type', "number");
         input.setAttribute('placeholder','From 2 to 5 only');
         input.setAttribute('autofocus', 'true');
         input.setAttribute('maxlength',1);
-        //input.setAttribute('min', '-9999');
-        //input.setAttribute('max', '99999');
         form.appendChild(input);
 
 
