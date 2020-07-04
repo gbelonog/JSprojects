@@ -1,40 +1,34 @@
-const path = require('path');
-const express = require('express');
-
-//making an express object
-const app = express();
-
-app.use(express.static(path.resolve(__dirname, "./")));
-
-app.listen(666);
+//coordinates work of models and views
 class Controller{
     constructor() {
         this.mySize_Model = new Size_Model();
         this.mySize_View = new Size_View(this.mySize_Model);    
     };
     start(){
+
+        //ask size and get it
         this.mySize_View.askSize();
         this.mySize_View.on('inputSize',(n)=>{
             this.mySize_Model.setSize(n);
         });
 
+        //create grid with cubes according to size
         this.mySize_View.on('getSize',()=>{
             this.mySize_View.removeForm();
-            if(this.mySize_Model.getSize() === 0 ||
+            if(this.mySize_Model.getSize() === 0 || //check that size is correct
                 this.mySize_Model.getSize() < 2 ||
                 this.mySize_Model.getSize() > 5){
-                    this.mySize_View.askSize();
-            } else {
-
+                    this.mySize_View.askSize(); //else ask size again
+            } else {//size is correct  -> create grid
                 this.myGrid_Model = new Grid_Model(this.mySize_Model.getSize());
                 this.myGrid_Model.createGridArray();
                 this.myGrid_View = new Grid_View(this.myGrid_Model.getGridArray());
-                this.myGrid_View.on('clickedCube',(n)=>{
-                    console.log(n.id);
+                this.myGrid_View.on('clickedCube',(n)=>{//cube is clicked -> chenge it
+                    //console.log(n.id);
                     this.myGrid_Model.changeCube(n.id);
-                    this.myGrid_Model.changeNeighbours(n.id);
+                    this.myGrid_Model.changeNeighbours(n.id);//and change neighbours
                     this.myGrid_View.removeCubes();
-                    if(this.myGrid_Model.victoryCheck()){
+                    if(this.myGrid_Model.victoryCheck()){ //and check for win
                         this.myVictory = new Win_View();
                         this.myVictory.showWinImage();
                     }else{
@@ -44,9 +38,6 @@ class Controller{
                 this.myGrid_View.showGrid();
             };
         });
-
-
-        
     };
 };
 class EventEmitter{
@@ -91,10 +82,13 @@ class Grid_Model{
                 counterForCreate++;
             }
         }
-        this.emulateClick();
-        this.emulateClick();
-        this.emulateClick();
-    }
+
+        //emulates some user's clicks - we need to be sure 
+        //that user can win by repeating emulated clicks in back order
+        for(let i =0; i < this.size; i++){
+            this.emulateClick();
+        };
+    };
 
     emulateClick(){
         let random = Math.floor(Math.random() * Math.floor(this.size * this.size));
@@ -103,7 +97,8 @@ class Grid_Model{
         this.changeNeighbours(random);
         return random;
     };
-
+    
+    //changes state of cube by clicking on it
     changeCube(id){
         this.gridArray.forEach(element => {
             if (element.id == id){
@@ -116,6 +111,7 @@ class Grid_Model{
         });
     };
 
+    //changes state of neighbours by clicking on cube
     changeNeighbours(id){
         let size = Number(this.size);
         if(id % size > 0){
@@ -144,34 +140,31 @@ class Grid_Model{
             return true;
         };
         return false;
-};
-
-        
+    };        
 };
 //view for drowing grid with cubes
 class Grid_View{
     constructor(gridArray){
         this.gridArray = gridArray;
         this.eventEmitter = new EventEmitter();
-        this.game;
     };
 
     showGrid(){
+        //create grid
         this.game = document.getElementById('board');
         let grid = document.createElement('div');
-
         grid.setAttribute('class','grid');
         grid.setAttribute('id','grid');
-
         this.game.appendChild(grid);
 
+        //set correct size
         let size = Math.sqrt(this.gridArray.length);
         let gridSize = size * 100 + size * 8;
         document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
         document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
 
+        //add cubes according to cubes' states
         let i = 0;
-
         this.gridArray.forEach(element => {
              let cube = document.createElement('cube');//create div element and assign it to var cube
              cube.id = i;
@@ -184,6 +177,7 @@ class Grid_View{
              grid.appendChild(cube);//add cube to grid
          });
         
+        // listener for cubes
         grid.addEventListener('click',(event) => {
             this.eventEmitter.emit('clickedCube', event.target);     
         });
@@ -198,180 +192,6 @@ class Grid_View{
     removeCubes(){
         document.getElementById('grid').remove();//removing grid
     };
-};
-module.exports = function(grunt) {
-
-    // 1. Всё конфигурирование тут
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-
-        concat: {
-            // 2. Конфигурация для объединения файлов тут.
-            dist: {
-                src: [
-                    '*.js'//, // Все JS в папке libs
-                    //'js/global.js'  // Какой-то файл
-                ],
-                dest: 'build/all.js',
-            }
-        }
-
-    });
-
-    // 3. Здесь мы сообщаем Grunt, что мы планируем использовать этот плагин:
-    grunt.loadNpmTasks('grunt-contrib-concat');
-
-    // 4. Мы сообщаем Grunt, что нужно делать, когда мы введём "grunt" в терминале.
-    grunt.registerTask('default', ['concat']);
-
-};
-// var gulp = require('gulp');
-// var concat = require('gulp-concat');
-
-// gulp.task('scripts', function() {
-//     return gulp.src(grid_view.js, size_view.js, win_view.js, eventEmitter.js, grid_model.js,
-//         size_model.js, controller.js, main.js).pipe(concat('all.js')).pipe(gulp.dest('./dist/'));
-//   });
-
-
-
-// function defaultTask(cb) {
-    
-//     cb();
-//   }
-  
-//   exports.default = defaultTask;
-
-
-
-// const { src, dest } = require('gulp');
-// const gulp = require('gulp');
-// const concat = require('gulp-concat');
-//const babel = require('gulp-babel');
-
-// exports.default = function() {
-//   return src('*.js')
-//     //.pipe(babel())
-//     //.pipe(dest('output/'))
-//     .pipe(concat('*.js').pipe(dest('output1/')));
-//     //.pipe(gulp.dest('./dist/'));
-// }
-
-// exports.default = function() {
-//   return gulp.src('*.js')
-//   .pipe(concat('all.js'))
-//   .pipe(gulp.dest('dist/'));
-// };
-// gulp.task('scripts', function() {
-//     return gulp.src('*.js')
-//       .pipe(concat('all.js'))
-//       .pipe(gulp.dest('dist/'));
-//   });
-
-var gulp = require('gulp');
-var concat = require('gulp-concat');
- 
-gulp.task('scripts', function() {
-    console.log('test');
-   return gulp.src('*.js')
-     .pipe(concat('all.js'))
-     .pipe(gulp.dest('./dist/'));
-});
-let game = document.getElementById('board');
-let grid = document.createElement('div');
-
-grid.setAttribute('class','grid');
-grid.setAttribute('id','grid');
-
-game.appendChild(grid);
-
-let size = prompt('Please set size of grid');
-let gridSize = size * 100 + size * 8;
-document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
-document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
-
-/*var i = 0;
-
-for(i = 0; i < size * size; i++){
-    var cube = document.createElement('div');//create div element and assign it to var cube
-    //cube.setAttribute('class','cube');
-    var random = Math.random()+0.5;//get random digit
-    if (random > 1){
-        cube.classList.add('cubeSecondState');
-    }
-    else {cube.classList.add('cubeFirstState');}
-
-    cube.id = i;
-    i++;
-    cube.setAttribute('x',x);//add x to cube
-    cube.setAttribute('y',y);//add y to cube
-    grid.appendChild(cube);//add cube to grid
-}*/
-let i = 0;
-for(let y = 0; y < size; y++){
-    for(let x = 0; x < size; x++){
-        let cube = document.createElement('cube');//create div element and assign it to var cube
-        let random = Math.random()+0.5;//get random digit
-        if (random > 1){
-            cube.classList.add('cubeSecondState');
-            //counter++;
-        }
-        else {
-            cube.classList.add('cubeFirstState');
-        }  
-        cube.id = i;
-        i++;
-        cube.setAttribute('x',x);//add x to cube
-        cube.setAttribute('y',y);//add y to cube
-        grid.appendChild(cube);//add cube to grid
-    };
-};
-
-//add event listener to grid
-grid.addEventListener('click',function(event){
-    let clicked = event.target;// var for clicked item
-    changeColor(clicked);//change color of clicked element
-    selectNaibor(clicked.id, size);//select elements to changed with clicked
-});
-
-//function to changing color of clicked element and its naibors
-function changeColor(cube){
-    if (cube.classList.contains('grid')){
-        return 0;
-    };
-    if (cube.classList.contains('cubeSecondState')){
-        cube.classList.remove('cubeSecondState');
-        cube.classList.add('cubeFirstState');
-    }
-    else {
-        cube.classList.remove('cubeFirstState');
-        cube.classList.add('cubeSecondState');
-    }
-};
-//this function makes selectNaibor function not so big
-function changeColorById(n){
-    elementNearClicked = document.getElementById(n);
-    changeColor(elementNearClicked);
-};    
-
-//function for selecting naibors of clicked element
-function selectNaibor(id, size){
-    size = Number(size);
-    x = document.getElementById(id).getAttribute('x');
-    y = document.getElementById(id).getAttribute('y');
-    if(x < size - 1){
-        changeColor(document.querySelector('[x='+ '"' + (Number(x)+1) + '"'+'][y='+ '"' + y + '"'+']'));
-    };
-    if(x > 0){
-        changeColor(document.querySelector('[x='+ '"' + (Number(x)-1) + '"'+'][y='+ '"' + y + '"'+']'));
-    };
-    if(y < size - 1){
-        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(y)+1) + '"'+']'));
-    };
-    if(y > 0){
-        changeColor(document.querySelector('[x='+ '"' + x + '"'+'][y='+ '"' + (Number(y)-1) + '"'+']'));
-    };    
-    victoryCheck(size);
 };
 let myController = new Controller();
 myController.start();
@@ -393,7 +213,6 @@ class Size_Model{
     setSize(size){
         this.size = size;
     };
-
 };
 //view for asking size
 class Size_View{
@@ -407,44 +226,48 @@ class Size_View{
         // if (this.size !== null){
         //     this.size_Model.setSize(this.size);
         // };
+
+        //add form
         let game = document.getElementById('board');
         let form = document.createElement('form');
         form.setAttribute('class','form');
         form.setAttribute('id','form');
         game.appendChild(form);
         
+        //add text
         let text = document.createElement('text');
         text.setAttribute('id','text');
         form.appendChild(text);
         text.innerHTML = '<b>Type size of greed</b>';
 
+        //add text field
         let input = document.createElement('input');
         input.setAttribute('id','input');
-        //input.setAttribute('type', "number");
         input.setAttribute('placeholder','From 2 to 5 only');
         input.setAttribute('autofocus', 'true');
         input.setAttribute('maxlength',1);
-        //input.setAttribute('min', '-9999');
-        //input.setAttribute('max', '99999');
         form.appendChild(input);
 
-
+        //add button
         let button = document.createElement('input');
         button.setAttribute('id','button');
         button.setAttribute('type','button');
         button.setAttribute('value',"Start game");
         form.appendChild(button);
 
-        this.size_Model.setSize(Number(document.getElementById('input').value));
+        //this.size_Model.setSize(Number(document.getElementById('input').value));
 
+        //listener for text field
         input.addEventListener('input', (event) => {
             this.eventEmitter.emit('inputSize',event.target.value);    
         });
 
+        //listener for button
         button.addEventListener('click', () => {
             this.eventEmitter.emit('getSize');   
         });
 
+        //2 3 4 5 digits only
         document.getElementById('input').onkeydown = function (e) {
             return !(/^[0А-Яа-яA-Za-z6-9\%\/\\\&\?\,\'\;\:\!\-\+\!\@\#\$\^\*\)\(\{\}\[\]\~\№\"\_ ]$/.test(e.key));
         };
@@ -459,18 +282,13 @@ class Size_View{
     };
 
 };
-
+//shows image when game is over
 class Win_View{
     showWinImage(){
         let point = document.getElementById('board');
         let image = document.createElement('img');
         image.setAttribute('id', 'winImage');
-        //image.setAttribute('src','https://image.freepik.com/free-vector/you-win-sign-pop-art-style_175838-499.jpg');
         image.setAttribute('src','you-win-sign-pop-art-style_175838-499.jpg');
-       
-        point.appendChild(image);
-        console.log(image);
-
-        
+        point.appendChild(image);   
     };
 };
