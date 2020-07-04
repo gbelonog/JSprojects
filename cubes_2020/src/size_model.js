@@ -9,5 +9,4 @@ class Size_Model{
     setSize(size){
         this.size = size;
     };
-
 };

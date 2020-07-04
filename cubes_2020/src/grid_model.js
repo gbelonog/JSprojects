@@ -18,10 +18,13 @@ class Grid_Model{
                 counterForCreate++;
             }
         }
-        this.emulateClick();
-        this.emulateClick();
-        this.emulateClick();
-    }
+
+        //emulates some user's clicks - we need to be sure 
+        //that user can win by repeating emulated clicks in back order
+        for(let i =0; i < this.size; i++){
+            this.emulateClick();
+        };
+    };
 
     emulateClick(){
         let random = Math.floor(Math.random() * Math.floor(this.size * this.size));
@@ -30,7 +33,8 @@ class Grid_Model{
         this.changeNeighbours(random);
         return random;
     };
-
+    
+    //changes state of cube by clicking on it
     changeCube(id){
         this.gridArray.forEach(element => {
             if (element.id == id){
@@ -43,6 +47,7 @@ class Grid_Model{
         });
     };
 
+    //changes state of neighbours by clicking on cube
     changeNeighbours(id){
         let size = Number(this.size);
         if(id % size > 0){
@@ -71,7 +76,5 @@ class Grid_Model{
             return true;
         };
         return false;
-};
-
-        
+    };        
 };
