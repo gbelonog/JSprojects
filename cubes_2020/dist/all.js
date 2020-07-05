@@ -1,43 +1,130 @@
-//coordinates work of models and views
-class Controller{
-    constructor() {
-        this.mySize_Model = new Size_Model();
-        this.mySize_View = new Size_View(this.mySize_Model);    
+//view for drowing grid with cubes
+class Grid_View{
+    constructor(gridArray){
+        this.gridArray = gridArray;
+        this.eventEmitter = new EventEmitter();
     };
-    start(){
 
-        //ask size and get it
-        this.mySize_View.askSize();
-        this.mySize_View.on('inputSize',(n)=>{
-            this.mySize_Model.setSize(n);
+    showGrid(){
+        //create grid
+        this.game = document.getElementById('board');
+        let grid = document.createElement('div');
+        grid.setAttribute('class','grid');
+        grid.setAttribute('id','grid');
+        this.game.appendChild(grid);
+
+        //set correct size
+        let size = Math.sqrt(this.gridArray.length);
+        let gridSize = size * 100 + size * 8;
+        document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
+        document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
+
+        //add cubes according to cubes' states
+        let i = 0;
+        this.gridArray.forEach(element => {
+             let cube = document.createElement('cube');//create div element and assign it to var cube
+             cube.id = i;
+             i++;
+             if (element.state == 1){
+                 cube.classList.add('cubeSecondState');
+             }else {
+                 cube.classList.add('cubeFirstState');
+             }  
+             grid.appendChild(cube);//add cube to grid
+         });
+        
+        // listener for cubes
+        grid.addEventListener('click',(event) => {
+            this.eventEmitter.emit('clickedCube', event.target);     
+        });
+    };
+    
+    on(eventName, data){
+        this.eventEmitter.on(eventName, data);
+    };
+
+    off(){};
+
+    removeCubes(){
+        document.getElementById('grid').remove();//removing grid
+    };
+};
+//view for asking size
+class Size_View{
+    constructor(size_Model){
+        this.size_Model = size_Model;
+        this.eventEmitter = new EventEmitter();
+    };
+
+    askSize(){
+        // this.size = prompt('Please set size of grid', 'Type digits from 2 to 10.');
+        // if (this.size !== null){
+        //     this.size_Model.setSize(this.size);
+        // };
+
+        //add form
+        let game = document.getElementById('board');
+        let form = document.createElement('form');
+        form.setAttribute('class','form');
+        form.setAttribute('id','form');
+        game.appendChild(form);
+        
+        //add text
+        let text = document.createElement('text');
+        text.setAttribute('id','text');
+        form.appendChild(text);
+        text.innerHTML = '<b>Type size of greed</b>';
+
+        //add text field
+        let input = document.createElement('input');
+        input.setAttribute('id','input');
+        input.setAttribute('placeholder','From 2 to 5 only');
+        input.setAttribute('autofocus', 'true');
+        input.setAttribute('maxlength',1);
+        form.appendChild(input);
+
+        //add button
+        let button = document.createElement('input');
+        button.setAttribute('id','button');
+        button.setAttribute('type','button');
+        button.setAttribute('value',"Start game");
+        form.appendChild(button);
+
+        //this.size_Model.setSize(Number(document.getElementById('input').value));
+
+        //listener for text field
+        input.addEventListener('input', (event) => {
+            this.eventEmitter.emit('inputSize',event.target.value);    
         });
 
-        //create grid with cubes according to size
-        this.mySize_View.on('getSize',()=>{
-            this.mySize_View.removeForm();
-            if(this.mySize_Model.getSize() === 0 || //check that size is correct
-                this.mySize_Model.getSize() < 2 ||
-                this.mySize_Model.getSize() > 5){
-                    this.mySize_View.askSize(); //else ask size again
-            } else {//size is correct  -> create grid
-                this.myGrid_Model = new Grid_Model(this.mySize_Model.getSize());
-                this.myGrid_Model.createGridArray();
-                this.myGrid_View = new Grid_View(this.myGrid_Model.getGridArray());
-                this.myGrid_View.on('clickedCube',(n)=>{//cube is clicked -> chenge it
-                    //console.log(n.id);
-                    this.myGrid_Model.changeCube(n.id);
-                    this.myGrid_Model.changeNeighbours(n.id);//and change neighbours
-                    this.myGrid_View.removeCubes();
-                    if(this.myGrid_Model.victoryCheck()){ //and check for win
-                        this.myVictory = new Win_View();
-                        this.myVictory.showWinImage();
-                    }else{
-                        this.myGrid_View.showGrid(); 
-                    };  
-                });
-                this.myGrid_View.showGrid();
-            };
+        //listener for button
+        button.addEventListener('click', () => {
+            this.eventEmitter.emit('getSize');   
         });
+
+        //2 3 4 5 digits only
+        document.getElementById('input').onkeydown = function (e) {
+            return !(/^[0А-Яа-яA-Za-z6-9\%\/\\\&\?\,\'\;\:\!\-\+\!\@\#\$\^\*\)\(\{\}\[\]\~\№\"\_ ]$/.test(e.key));
+        };
+    };   
+    
+    on(eventName, data){
+        this.eventEmitter.on(eventName, data);
+    };
+
+    removeForm(){
+        document.getElementById('form').remove();//removing form
+    };
+
+};
+//shows image when game is over
+class Win_View{
+    showWinImage(){
+        let point = document.getElementById('board');
+        let image = document.createElement('img');
+        image.setAttribute('id', 'winImage');
+        image.setAttribute('src','img/you-win-sign-pop-art-style_175838-499.jpg');
+        point.appendChild(image);   
     };
 };
 class EventEmitter{
@@ -142,66 +229,6 @@ class Grid_Model{
         return false;
     };        
 };
-//view for drowing grid with cubes
-class Grid_View{
-    constructor(gridArray){
-        this.gridArray = gridArray;
-        this.eventEmitter = new EventEmitter();
-    };
-
-    showGrid(){
-        //create grid
-        this.game = document.getElementById('board');
-        let grid = document.createElement('div');
-        grid.setAttribute('class','grid');
-        grid.setAttribute('id','grid');
-        this.game.appendChild(grid);
-
-        //set correct size
-        let size = Math.sqrt(this.gridArray.length);
-        let gridSize = size * 100 + size * 8;
-        document.getElementById('grid').style.setProperty('--grid-width', gridSize + 'px');// set width property in css file
-        document.getElementById('grid').style.setProperty('--grid-height', gridSize + 'px');// set height property in css file
-
-        //add cubes according to cubes' states
-        let i = 0;
-        this.gridArray.forEach(element => {
-             let cube = document.createElement('cube');//create div element and assign it to var cube
-             cube.id = i;
-             i++;
-             if (element.state == 1){
-                 cube.classList.add('cubeSecondState');
-             }else {
-                 cube.classList.add('cubeFirstState');
-             }  
-             grid.appendChild(cube);//add cube to grid
-         });
-        
-        // listener for cubes
-        grid.addEventListener('click',(event) => {
-            this.eventEmitter.emit('clickedCube', event.target);     
-        });
-    };
-    
-    on(eventName, data){
-        this.eventEmitter.on(eventName, data);
-    };
-
-    off(){};
-
-    removeCubes(){
-        document.getElementById('grid').remove();//removing grid
-    };
-};
-let myController = new Controller();
-myController.start();
-
-
-//class Random_Lib{};
-//class Victory_Model{};
-
-
-
 //model for asking size
 class Size_Model{
     constructor(){
@@ -214,81 +241,53 @@ class Size_Model{
         this.size = size;
     };
 };
-//view for asking size
-class Size_View{
-    constructor(size_Model){
-        this.size_Model = size_Model;
-        this.eventEmitter = new EventEmitter();
+//coordinates work of models and views
+class Controller{
+    constructor() {
+        this.mySize_Model = new Size_Model();
+        this.mySize_View = new Size_View(this.mySize_Model);    
     };
+    start(){
 
-    askSize(){
-        // this.size = prompt('Please set size of grid', 'Type digits from 2 to 10.');
-        // if (this.size !== null){
-        //     this.size_Model.setSize(this.size);
-        // };
-
-        //add form
-        let game = document.getElementById('board');
-        let form = document.createElement('form');
-        form.setAttribute('class','form');
-        form.setAttribute('id','form');
-        game.appendChild(form);
-        
-        //add text
-        let text = document.createElement('text');
-        text.setAttribute('id','text');
-        form.appendChild(text);
-        text.innerHTML = '<b>Type size of greed</b>';
-
-        //add text field
-        let input = document.createElement('input');
-        input.setAttribute('id','input');
-        input.setAttribute('placeholder','From 2 to 5 only');
-        input.setAttribute('autofocus', 'true');
-        input.setAttribute('maxlength',1);
-        form.appendChild(input);
-
-        //add button
-        let button = document.createElement('input');
-        button.setAttribute('id','button');
-        button.setAttribute('type','button');
-        button.setAttribute('value',"Start game");
-        form.appendChild(button);
-
-        //this.size_Model.setSize(Number(document.getElementById('input').value));
-
-        //listener for text field
-        input.addEventListener('input', (event) => {
-            this.eventEmitter.emit('inputSize',event.target.value);    
+        //ask size and get it
+        this.mySize_View.askSize();
+        this.mySize_View.on('inputSize',(n)=>{
+            this.mySize_Model.setSize(n);
         });
 
-        //listener for button
-        button.addEventListener('click', () => {
-            this.eventEmitter.emit('getSize');   
+        //create grid with cubes according to size
+        this.mySize_View.on('getSize',()=>{
+            this.mySize_View.removeForm();
+            if(this.mySize_Model.getSize() === 0 || //check that size is correct
+                this.mySize_Model.getSize() < 2 ||
+                this.mySize_Model.getSize() > 5){
+                    this.mySize_View.askSize(); //else ask size again
+            } else {//size is correct  -> create grid
+                this.myGrid_Model = new Grid_Model(this.mySize_Model.getSize());
+                this.myGrid_Model.createGridArray();
+                this.myGrid_View = new Grid_View(this.myGrid_Model.getGridArray());
+                this.myGrid_View.on('clickedCube',(n)=>{//cube is clicked -> chenge it
+                    //console.log(n.id);
+                    this.myGrid_Model.changeCube(n.id);
+                    this.myGrid_Model.changeNeighbours(n.id);//and change neighbours
+                    this.myGrid_View.removeCubes();
+                    if(this.myGrid_Model.victoryCheck()){ //and check for win
+                        this.myVictory = new Win_View();
+                        this.myVictory.showWinImage();
+                    }else{
+                        this.myGrid_View.showGrid(); 
+                    };  
+                });
+                this.myGrid_View.showGrid();
+            };
         });
-
-        //2 3 4 5 digits only
-        document.getElementById('input').onkeydown = function (e) {
-            return !(/^[0А-Яа-яA-Za-z6-9\%\/\\\&\?\,\'\;\:\!\-\+\!\@\#\$\^\*\)\(\{\}\[\]\~\№\"\_ ]$/.test(e.key));
-        };
-    };   
-    
-    on(eventName, data){
-        this.eventEmitter.on(eventName, data);
-    };
-
-    removeForm(){
-        document.getElementById('form').remove();//removing form
-    };
-
-};
-//shows image when game is over
-class Win_View{
-    showWinImage(){
-        let point = document.getElementById('board');
-        let image = document.createElement('img');
-        image.setAttribute('id', 'winImage');
-        image.setAttribute('src','you-win-sign-pop-art-style_175838-499.jpg');
-        point.appendChild(image);   
     };
 };
+let myController = new Controller();
+myController.start();
+
+
+//class Random_Lib{};
+//class Victory_Model{};
+
+
