@@ -4,7 +4,7 @@ class Win_View{
         let point = document.getElementById('board');
         let image = document.createElement('img');
         image.setAttribute('id', 'winImage');
-        image.setAttribute('src','img/you-win-sign-pop-art-style_175838-499.jpg');
+        image.setAttribute('src','you-win-sign-pop-art-style_175838-499.jpg');
         point.appendChild(image);   
     };
 };
